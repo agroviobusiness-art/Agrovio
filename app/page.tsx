@@ -13,6 +13,7 @@ import buyerBids from "@/public/assets/feature-buyer-bids.png";
 import pricingChart from "@/public/assets/feature-pricing-chart.png";
 import founderPhoto from "@/public/assets/founder-diego-torres.jpg";
 import investorLogo from "@/public/assets/investor-santa-sofia.jpeg";
+import southAmericaMap from "@/public/assets/south-america-map.jpg";
 
 export default function HomePage() {
   return (
@@ -175,16 +176,24 @@ export default function HomePage() {
       {/* Invite form */}
       <section id="invite" className="scroll-mt-28 py-20 sm:py-28">
         <Container>
-          <div className="mx-auto max-w-2xl text-center">
-            <SectionHeading>
-              Request an invite to join Agrovio today.
-            </SectionHeading>
-            <p className="mt-4 text-lg text-ink/60">
-              Tell us a bit about your operation and we’ll be in touch.
-            </p>
-          </div>
-          <div className="mx-auto mt-12 max-w-2xl rounded-3xl border border-black/[0.06] bg-white p-6 shadow-sm sm:p-10">
-            <InviteForm />
+          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+            <div>
+              <SectionHeading>
+                Request an invite to join Agrovio today.
+              </SectionHeading>
+              <p className="mt-4 text-lg text-ink/60">
+                Tell us a bit about your operation and we’ll be in touch.
+              </p>
+              <Image
+                src={southAmericaMap}
+                alt="Agrovio operates across Peru and Latin America"
+                sizes="(max-width: 1024px) 60vw, 440px"
+                className="mt-10 w-full max-w-xs sm:max-w-sm lg:max-w-md"
+              />
+            </div>
+            <div className="rounded-3xl border border-black/[0.06] bg-white p-6 shadow-sm sm:p-10">
+              <InviteForm />
+            </div>
           </div>
         </Container>
       </section>
