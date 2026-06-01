@@ -64,6 +64,22 @@ export const loginSchema = z.object({
   password: z.string().min(1, "Password is required"),
 });
 
+/** Forgot-password: just the email to send a reset link to. */
+export const resetRequestSchema = z.object({
+  email: z.email("Enter a valid email address"),
+});
+
+/** Set / update password (used after an invite or reset link). */
+export const updatePasswordSchema = z
+  .object({
+    password: z.string().min(8, "Use at least 8 characters"),
+    confirm: z.string().min(1, "Please confirm your password"),
+  })
+  .refine((d) => d.password === d.confirm, {
+    message: "Passwords don't match",
+    path: ["confirm"],
+  });
+
 /**
  * Collapse a ZodError into a `{ field: message }` map.
  * Written by iterating `issues` directly so it's robust across Zod versions
