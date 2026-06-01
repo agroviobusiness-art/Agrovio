@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { isAdminEmail } from "@/lib/admin";
 import {
   loginSchema,
   resetRequestSchema,
@@ -55,8 +56,9 @@ export async function loginAction(
     };
   }
 
+  // Admins land straight in the (hidden) portal; everyone else on /welcome.
   // redirect() throws NEXT_REDIRECT, so it must be outside any try/catch.
-  redirect("/welcome");
+  redirect(isAdminEmail(parsed.data.email) ? "/admin" : "/welcome");
 }
 
 export async function logoutAction() {

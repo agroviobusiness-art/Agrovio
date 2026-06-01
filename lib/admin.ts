@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 /** Comma-separated allowlist of admin emails (defaults to the client's). */
@@ -14,10 +14,11 @@ export function isAdminEmail(email?: string | null): boolean {
 }
 
 /**
- * Gate for the admin portal. Returns the admin user, or redirects:
- * not logged in -> /login; logged in but not an admin -> home.
- * Call this in every admin layout/page AND re-call inside admin actions
- * (server actions are reachable by direct POST).
+ * Gate for the admin portal. Returns the admin user, or 404s for everyone
+ * else — including signed-in non-admins and anonymous visitors — so the portal
+ * is undiscoverable (no redirect that would hint it exists).
+ * Call this in every admin layout/page AND inside admin actions (server actions
+ * are reachable by direct POST).
  */
 export async function requireAdmin() {
   const supabase = await createSupabaseServerClient();
@@ -25,8 +26,7 @@ export async function requireAdmin() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) redirect("/login?error=admin");
-  if (!isAdminEmail(user.email)) redirect("/?denied=admin");
+  if (!user || !isAdminEmail(user.email)) notFound();
 
   return user;
 }
