@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+/*
+  Agrovio design tokens (Tailwind v4).
+  Colors declared in @theme become utilities automatically:
+    --color-brand        -> bg-brand / text-brand / border-brand
+    --color-mist         -> bg-mist
+  The font is wired with @theme inline so Tailwind substitutes the next/font
+  CSS variable (set on <html> in app/layout.tsx) directly into `font-sans`.
+*/
+@theme {
+  /* Brand greens */
+  --color-brand: #338f50; /* primary green */
+  --color-brand-dark: #1f7a3f; /* hero gradient mid */
+  --color-brand-bright: #2e9c54; /* hero gradient end */
+  --color-brand-deep: #0f5128; /* deepest green: gradient start + bands */
+
+  /* Neutrals */
+  --color-ink: #0a0a0a; /* near-black text */
+  --color-mist: #eaeaea; /* light gray section background */
+
+  /* Logo accents (the two circles on the leaf mark) */
+  --color-leaf-teal: #2bc4b4;
+  --color-leaf-lime: #7ac529;
+}
+
+@theme inline {
+  --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* Safety net: a single oversized element never scrolls the whole page. */
+  overflow-x: hidden;
+}
+
+@layer utilities {
+  /* The Agrovio green gradient: deep green (bottom-left) to bright green
+     (top-right), matching the brand background asset. Used behind every
+     page's hero and in the footer. */
+  .bg-hero-gradient {
+    background-image: linear-gradient(
+      to top right,
+      var(--color-brand-deep) 0%,
+      var(--color-brand-dark) 52%,
+      var(--color-brand-bright) 100%
+    );
+  }
+}
