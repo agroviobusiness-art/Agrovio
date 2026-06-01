@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { COUNTRIES, REFERRAL_SOURCES } from "@/lib/content";
+import { passwordMeetsAll } from "@/lib/password";
 
 export const ROLES = ["Producer", "Buyer"] as const;
 
@@ -72,7 +73,11 @@ export const resetRequestSchema = z.object({
 /** Set / update password (used after an invite or reset link). */
 export const updatePasswordSchema = z
   .object({
-    password: z.string().min(8, "Use at least 8 characters"),
+    password: z
+      .string()
+      .refine(passwordMeetsAll, {
+        message: "Password doesn't meet all the requirements below.",
+      }),
     confirm: z.string().min(1, "Please confirm your password"),
   })
   .refine((d) => d.password === d.confirm, {

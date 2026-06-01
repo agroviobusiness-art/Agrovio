@@ -118,7 +118,16 @@ export async function updatePasswordAction(
     password: parsed.data.password,
   });
   if (error) {
-    return { message: error.message };
+    // Map Supabase's password errors (weak / previously-leaked) to a friendly
+    // message instead of surfacing the raw error.
+    const weak =
+      error.code === "weak_password" ||
+      /weak|pwned|leak|password/i.test(error.message);
+    return {
+      message: weak
+        ? "That password doesn't meet the requirements (it may be too weak or previously leaked). Please choose a stronger one."
+        : "Couldn't set your password — please try again.",
+    };
   }
 
   redirect("/welcome");

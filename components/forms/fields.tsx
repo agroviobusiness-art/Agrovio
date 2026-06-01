@@ -1,3 +1,4 @@
+import type { ChangeEventHandler } from "react";
 import { cn } from "@/lib/utils";
 
 const FIELD_BASE =
@@ -36,6 +37,8 @@ export function TextField({
   error,
   autoComplete,
   placeholder,
+  value,
+  onChange,
 }: {
   label: string;
   name: string;
@@ -44,6 +47,8 @@ export function TextField({
   error?: string;
   autoComplete?: string;
   placeholder?: string;
+  value?: string;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
 }) {
   return (
     <div>
@@ -58,6 +63,8 @@ export function TextField({
         aria-required={required || undefined}
         autoComplete={autoComplete}
         placeholder={placeholder}
+        value={value}
+        onChange={onChange}
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? `${name}-error` : undefined}
         className={cn(FIELD_BASE, error ? FIELD_ERR : FIELD_OK)}
