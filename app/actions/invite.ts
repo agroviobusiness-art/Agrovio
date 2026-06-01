@@ -1,6 +1,9 @@
 "use server";
 
+import { headers } from "next/headers";
+import { createHash } from "crypto";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { inviteSchema, fieldErrorsFrom } from "@/lib/validation";
 import { sendInviteNotification } from "@/lib/email";
 
@@ -18,6 +21,46 @@ export async function inviteAction(
   _prev: InviteState,
   formData: FormData
 ): Promise<InviteState> {
+  // 1. Honeypot — bots fill the hidden field; silently accept without storing.
+  if (String(formData.get("company_website") ?? "").trim()) {
+    return {
+      ok: true,
+      message: "Thanks! Your invite request is in — we'll be in touch soon.",
+    };
+  }
+
+  const supabase = await createSupabaseServerClient();
+
+  // 2. Per-IP rate limit: max 5 submissions/hour (atomic, via public.rate_limit_hit).
+  const hdrs = await headers();
+  const ip = (
+    hdrs.get("x-forwarded-for")?.split(",")[0] ??
+    hdrs.get("x-real-ip") ??
+    "unknown"
+  ).trim();
+  const rlKey =
+    "invite:" + createHash("sha256").update(ip).digest("hex").slice(0, 40);
+  // Called with the service-role client — the function is not exposed to anon.
+  const { data: allowed, error: rlError } = await createSupabaseAdminClient().rpc(
+    "rate_limit_hit",
+    { p_key: rlKey, p_max: 5, p_window_seconds: 3600 }
+  );
+  // Fail open (don't block real leads on an infra blip) but log so a broken
+  // limiter is observable.
+  if (rlError) {
+    console.error("rate_limit_hit failed", {
+      code: rlError.code,
+      message: rlError.message,
+    });
+  }
+  if (allowed === false) {
+    return {
+      ok: false,
+      message:
+        "You've already submitted a few times — please try again in a little while.",
+    };
+  }
+
   const parsed = inviteSchema.safeParse({
     firstName: str(formData.get("firstName")),
     lastName: str(formData.get("lastName")),
@@ -39,7 +82,6 @@ export async function inviteAction(
   }
 
   const d = parsed.data;
-  const supabase = await createSupabaseServerClient();
 
   const { error } = await supabase.from("invite_requests").insert({
     first_name: d.firstName,

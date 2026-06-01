@@ -78,6 +78,15 @@ ADMIN_EMAILS=agroviobusiness@gmail.com                    # comma-separated allo
 - **Don't** replace the producer/buyer/chat placeholders unless asked.
 - Before using an unfamiliar Next 16 API, read `node_modules/next/dist/docs/` (it really does differ from older Next).
 
+## Agent team (`.claude/agents/`)
+Specialist subagents — see `.claude/agents/README.md`. **`agrovio-orchestrator`** plans/coordinates; **`agrovio-frontend` / `agrovio-backend` / `agrovio-database`** do the work; **`agrovio-security` reviews every change before it ships** (read-only — verdict must be SHIP). Build must pass and DB advisors must be clean before the security gate, and deploy **one at a time**. **At the end of each session, update `LESSONS.md` and the affected agent files / this guide** with anything new learned.
+
+## Security posture
+- **Headers** (`next.config.ts`): CSP, X-Frame-Options DENY, HSTS, nosniff, Referrer-Policy, Permissions-Policy.
+- **Contact form**: honeypot field + per-IP rate limit (5/hour) via `public.rate_limit_hit` (atomic SECURITY DEFINER fn, called **service-role-only**, not exposed to anon). RLS insert-only on `invite_requests` (no PII readback).
+- **Auth endpoints**: rate-limited by Supabase (GoTrue). Admin portal hidden (404 for non-admins). Service-role/secret keys are server-only.
+- **Pending manual** (Supabase dashboard): enable leaked-password protection (advisor WARN). Public sign-ups already disabled.
+
 ## Manual tasks that CANNOT be done via code or the Supabase MCP
 - **Supabase Auth config** (Site URL, email templates, SMTP): dashboard, or the Supabase **Management API with a Personal Access Token** (the MCP is scoped to DB/project, not GoTrue settings). Public sign-ups are already disabled.
 - **Auto-emailing invites/resets to anyone**: needs a **verified domain in Resend** (DNS). Resend's onboarding domain only delivers to the account owner. Until then, the admin shares copy-able links.

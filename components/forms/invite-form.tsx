@@ -49,6 +49,18 @@ export function InviteForm() {
 
   return (
     <form action={action} noValidate className="space-y-5">
+      {/* Honeypot — hidden from people; bots fill it and get silently dropped. */}
+      <div aria-hidden className="hidden" style={{ position: "absolute", left: "-9999px" }}>
+        <label htmlFor="company_website">Company website</label>
+        <input
+          id="company_website"
+          name="company_website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
+
       <div className="grid gap-5 sm:grid-cols-2">
         <TextField label="First Name" name="firstName" required autoComplete="given-name" error={state.errors?.firstName} />
         <TextField label="Last Name" name="lastName" required autoComplete="family-name" error={state.errors?.lastName} />
