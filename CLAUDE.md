@@ -85,7 +85,7 @@ Specialist subagents — see `.claude/agents/README.md`. **`agrovio-orchestrator
 - **Headers** (`next.config.ts`): CSP, X-Frame-Options DENY, HSTS, nosniff, Referrer-Policy, Permissions-Policy.
 - **Contact form**: honeypot field + per-IP rate limit (5/hour) via `public.rate_limit_hit` (atomic SECURITY DEFINER fn, called **service-role-only**, not exposed to anon). RLS insert-only on `invite_requests` (no PII readback).
 - **Auth endpoints**: rate-limited by Supabase (GoTrue). Admin portal hidden (404 for non-admins). Service-role/secret keys are server-only.
-- **Pending manual** (Supabase dashboard): enable leaked-password protection (advisor WARN). Public sign-ups already disabled.
+- **Leaked-password protection** (advisor WARN) is **Pro-plan only** — *not available on Free*, and low priority here anyway (invite-only: admin-created accounts, no public signup, auth endpoints rate-limited by Supabase). On Free, instead raise the **min password length + required characters** under Auth → Providers → Email (the app's Zod already requires 8+). Public sign-ups are disabled.
 
 ## Manual tasks that CANNOT be done via code or the Supabase MCP
 - **Supabase Auth config** (Site URL, email templates, SMTP): dashboard, or the Supabase **Management API with a Personal Access Token** (the MCP is scoped to DB/project, not GoTrue settings). Public sign-ups are already disabled.
