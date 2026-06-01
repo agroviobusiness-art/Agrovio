@@ -1,4 +1,5 @@
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
+import { LeadActions } from "@/components/admin/lead-actions";
 
 export const dynamic = "force-dynamic";
 
@@ -55,6 +56,8 @@ export default async function LeadsPage() {
                 <th className={TH}>Country</th>
                 <th className={TH}>Heard via</th>
                 <th className={TH}>Submitted</th>
+                <th className={TH}>Status</th>
+                <th className={TH}>Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-black/[0.05]">
@@ -73,6 +76,20 @@ export default async function LeadsPage() {
                   <td className={TD}>{r.country || "—"}</td>
                   <td className={TD}>{r.referral_source || "—"}</td>
                   <td className={TD}>{fmtDate(r.created_at)}</td>
+                  <td className={TD}>
+                    <span
+                      className={
+                        r.status === "accepted"
+                          ? "rounded-full bg-brand/10 px-2 py-0.5 text-xs font-medium text-brand-dark"
+                          : "rounded-full bg-mist px-2 py-0.5 text-xs font-medium text-ink/60"
+                      }
+                    >
+                      {r.status === "accepted" ? "Accepted" : "New"}
+                    </span>
+                  </td>
+                  <td className={TD}>
+                    <LeadActions id={r.id} email={r.email} status={r.status ?? "new"} />
+                  </td>
                 </tr>
               ))}
             </tbody>

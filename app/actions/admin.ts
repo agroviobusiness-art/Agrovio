@@ -1,8 +1,12 @@
 "use server";
 
 import { z } from "zod";
+import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/admin";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
+
+// A long ban acts as a reversible "soft delete" — fully restorable via unban.
+const SOFT_DELETE_BAN = "876000h"; // ~100 years
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://agrovio.vercel.app";
 
@@ -88,4 +92,76 @@ export async function generateResetLinkAction(
     message: `Password-reset link for ${email} — copy it and send it to them.`,
     link: confirmLink(data.properties.hashed_token, "recovery"),
   };
+}
+
+/** Accept a lead: invite them as a member + mark the lead handled. */
+export async function acceptLeadAction(
+  _prev: LinkState,
+  formData: FormData
+): Promise<LinkState> {
+  await requireAdmin();
+
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+  const id = String(formData.get("id") ?? "");
+  if (!z.email().safeParse(email).success) {
+    return { ok: false, message: "This lead has an invalid email." };
+  }
+
+  const admin = createSupabaseAdminClient();
+  const { data, error } = await admin.auth.admin.generateLink({
+    type: "invite",
+    email,
+    options: { redirectTo: `${SITE_URL}/account/update-password` },
+  });
+
+  if (error || !data?.properties?.hashed_token) {
+    return {
+      ok: false,
+      email,
+      message:
+        error?.message ?? "Couldn't invite — they may already be a member.",
+    };
+  }
+
+  if (id) {
+    await admin.from("invite_requests").update({ status: "accepted" }).eq("id", id);
+    revalidatePath("/admin/requests");
+  }
+
+  return {
+    ok: true,
+    email,
+    message: `Accepted ${email}. Copy this invite link and send it to them:`,
+    link: confirmLink(data.properties.hashed_token, "invite"),
+  };
+}
+
+/** Soft-remove a member — a reversible ban. They can't sign in until restored. */
+export async function removeMemberAction(formData: FormData): Promise<void> {
+  await requireAdmin();
+  const userId = String(formData.get("userId") ?? "");
+  if (!userId) return;
+  const admin = createSupabaseAdminClient();
+  await admin.auth.admin.updateUserById(userId, { ban_duration: SOFT_DELETE_BAN });
+  revalidatePath("/admin/members");
+}
+
+/** Restore a removed member (unban). */
+export async function restoreMemberAction(formData: FormData): Promise<void> {
+  await requireAdmin();
+  const userId = String(formData.get("userId") ?? "");
+  if (!userId) return;
+  const admin = createSupabaseAdminClient();
+  await admin.auth.admin.updateUserById(userId, { ban_duration: "none" });
+  revalidatePath("/admin/members");
+}
+
+/** Permanently delete a member. Irreversible. */
+export async function deleteMemberAction(formData: FormData): Promise<void> {
+  await requireAdmin();
+  const userId = String(formData.get("userId") ?? "");
+  if (!userId) return;
+  const admin = createSupabaseAdminClient();
+  await admin.auth.admin.deleteUser(userId);
+  revalidatePath("/admin/members");
 }
