@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { logoutAction } from "@/app/actions/auth";
+import { isAdminEmail } from "@/lib/admin";
 import { PillLink, PillButton } from "@/components/ui/pill-button";
 
 export const metadata: Metadata = {
@@ -29,7 +30,12 @@ export default async function WelcomePage() {
           we’ll email you the moment your dashboard is ready.
         </p>
         <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
-          <PillLink href="/" variant="white">
+          {isAdminEmail(user.email) && (
+            <PillLink href="/admin" variant="white">
+              Open admin portal
+            </PillLink>
+          )}
+          <PillLink href="/" variant={isAdminEmail(user.email) ? "outlineLight" : "white"}>
             Back to home
           </PillLink>
           <form action={logoutAction}>

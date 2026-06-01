@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Container } from "@/components/ui/container";
 import { FOOTER, SITE } from "@/lib/content";
 import logoWhite from "@/public/assets/agrovio-logo-white.png";
@@ -43,6 +46,9 @@ function FooterColumn({
 }
 
 export function SiteFooter() {
+  const pathname = usePathname();
+  if (pathname?.startsWith("/admin")) return null;
+
   return (
     <footer className="bg-brand text-white">
       <Container className="py-14 sm:py-16">

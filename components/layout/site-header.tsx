@@ -55,6 +55,9 @@ export function SiteHeader() {
   const pathname = usePathname();
   const close = () => setOpen(false);
 
+  // The admin portal has its own chrome — don't render the marketing nav there.
+  const isAdmin = pathname?.startsWith("/admin");
+
   // Close the drawer on navigation and on Escape.
   useEffect(() => setOpen(false), [pathname]);
   useEffect(() => {
@@ -63,6 +66,8 @@ export function SiteHeader() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
+
+  if (isAdmin) return null;
 
   return (
     <header className="absolute inset-x-0 top-0 z-50">
