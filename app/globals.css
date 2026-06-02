@@ -72,3 +72,134 @@ body {
     );
   }
 }
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Motion system
+   One source of truth for easings + durations, the native View Transitions
+   page crossfade, the scroll-in reveal, and the mobile drawer. Everything is
+   opt-in via `prefers-reduced-motion: no-preference` (plus a hard kill-switch
+   for the browser's default view transition), so reduced-motion users get
+   instant, vestibular-safe swaps. Only transform/opacity animate (GPU).
+   ────────────────────────────────────────────────────────────────────────── */
+:root {
+  /* The "expensive" decelerate curve premium marketing sites favour. */
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-page-out: 200ms; /* old page leaves a touch faster */
+  --dur-page-in: 360ms; /* new page settles in */
+  --dur-reveal: 640ms; /* long tail reads as luxurious (it only moves ~20px) */
+  --dur-drawer: 260ms;
+}
+
+/* ── Page-to-page transition (native View Transitions API) ──────────────────
+   experimental.viewTransition + <ViewTransition name="page-content"> (see
+   components/motion/page-transition.tsx) give the page content one named group;
+   we crossfade its old→new snapshots (new also gently rises). The header/footer
+   carry their own view-transition-name so they stay put. The body background is
+   the leftover `root` group (white → white, invisible). */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(page-content) {
+    animation: vt-page-out var(--dur-page-out) var(--ease-out-quint) both;
+  }
+  ::view-transition-new(page-content) {
+    animation: vt-page-in var(--dur-page-in) var(--ease-out-quint) both;
+  }
+}
+
+@keyframes vt-page-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes vt-page-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Pure dissolve in place: don't morph the group geometry, so navigating between
+   pages of very different heights (e.g. home → login) doesn't squish the
+   outgoing snapshot — only opacity (and the new page's small rise) animates.
+   Both are NAME selectors (reliable), not class selectors. */
+::view-transition-group(page-content),
+::view-transition-group(root) {
+  animation: none;
+}
+
+/* Keep the persistent chrome perfectly still AND on top: z-index stops the
+   fading-out page from briefly painting over the anchored header/footer. */
+::view-transition-group(site-header),
+::view-transition-group(site-footer) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(site-header),
+::view-transition-old(site-footer) {
+  /* Hide the old snapshot so the two identical bars never double-expose. */
+  display: none;
+}
+::view-transition-new(site-header),
+::view-transition-new(site-footer) {
+  animation: none;
+}
+
+/* Reduced motion: collapse every view transition to an instant swap. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
+
+/* ── Scroll-reveal ──────────────────────────────────────────────────────────
+   <Reveal> (components/motion/reveal.tsx) sets data-shown when a block scrolls
+   into view. The hidden state applies ONLY when scripting is enabled, so no-JS
+   visitors and crawlers always get fully-visible content (markup is unchanged —
+   only opacity/transform differ). Stagger via a `[--reveal-delay:Nms]` class. */
+@media (prefers-reduced-motion: no-preference) and (scripting: enabled) {
+  [data-reveal] {
+    transition:
+      opacity var(--dur-reveal) var(--ease-out-quint) var(--reveal-delay, 0ms),
+      transform var(--dur-reveal) var(--ease-out-quint) var(--reveal-delay, 0ms);
+  }
+  [data-reveal]:not([data-shown]) {
+    opacity: 0;
+    transform: translateY(20px);
+    will-change: opacity, transform;
+  }
+  /* Opacity-only variant for full-bleed colored bands, where a translate would
+     briefly expose a sliver of the section behind it. */
+  [data-reveal].reveal-fade:not([data-shown]) {
+    transform: none;
+  }
+}
+
+/* ── Mobile nav drawer ──────────────────────────────────────────────────────
+   Always rendered (so it animates in AND out); `inert` when closed keeps it out
+   of the tab order + accessibility tree, pointer-events:none lets clicks fall
+   through to the hero beneath. */
+.mobile-drawer {
+  transform-origin: top center;
+  opacity: 0;
+  transform: translateY(-6px) scale(0.985);
+  pointer-events: none;
+  transition:
+    opacity var(--dur-drawer) var(--ease-out-quint),
+    transform var(--dur-drawer) var(--ease-out-quint);
+}
+.mobile-drawer[data-open] {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mobile-drawer {
+    transition-duration: 1ms;
+  }
+}

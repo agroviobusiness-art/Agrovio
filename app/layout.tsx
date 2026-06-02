@@ -3,6 +3,7 @@ import { Space_Grotesk, Inter } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { PageTransition } from "@/components/motion/page-transition";
 import { SITE } from "@/lib/content";
 
 // Space Grotesk is a variable font, so we omit `weight` and expose every axis
@@ -55,7 +56,7 @@ export default function RootLayout({
         </a>
         <SiteHeader />
         <main id="main" className="flex-1">
-          {children}
+          <PageTransition>{children}</PageTransition>
         </main>
         <SiteFooter />
       </body>

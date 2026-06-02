@@ -50,7 +50,7 @@ export function SiteFooter() {
   if (pathname?.startsWith("/admin")) return null;
 
   return (
-    <footer className="bg-brand text-white">
+    <footer className="bg-brand text-white [view-transition-name:site-footer]">
       <Container className="py-14 sm:py-16">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>

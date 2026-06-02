@@ -35,6 +35,13 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  experimental: {
+    // Opt into React's <ViewTransition> so client-side navigations animate via
+    // the native View Transitions API (see components/motion/page-transition.tsx
+    // + the ::view-transition rules in app/globals.css). Degrades gracefully:
+    // browsers without support just swap pages instantly.
+    viewTransition: true,
+  },
   images: {
     // Next 16 requires an explicit qualities allow-list; we use the default 75
     // plus 90 for the crisp product mockups + hero.

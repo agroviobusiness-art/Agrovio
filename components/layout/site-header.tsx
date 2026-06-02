@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -53,6 +53,7 @@ function Logo({ onClick }: { onClick?: () => void }) {
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const toggleRef = useRef<HTMLButtonElement>(null);
   const close = () => setOpen(false);
 
   // The admin portal has its own chrome — don't render the marketing nav there.
@@ -62,7 +63,11 @@ export function SiteHeader() {
   useEffect(() => setOpen(false), [pathname]);
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setOpen(false);
+      toggleRef.current?.focus(); // return focus to the trigger (disclosure pattern)
+    };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
@@ -70,7 +75,7 @@ export function SiteHeader() {
   if (isAdmin) return null;
 
   return (
-    <header className="absolute inset-x-0 top-0 z-50">
+    <header className="absolute inset-x-0 top-0 z-50 [view-transition-name:site-header]">
       <div className="bg-black/20">
         <p className="px-4 py-2.5 text-center text-[13px] font-light text-white/95">
           {ANNOUNCEMENT}
@@ -103,6 +108,7 @@ export function SiteHeader() {
           </div>
 
           <button
+            ref={toggleRef}
             type="button"
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "Close menu" : "Open menu"}
@@ -115,45 +121,45 @@ export function SiteHeader() {
         </nav>
       </Container>
 
-      {open && (
-        <Container className="md:hidden">
-          <nav
-            id="mobile-menu"
-            aria-label="Mobile"
-            className="mb-4 rounded-2xl bg-brand-deep/95 p-4 shadow-xl ring-1 ring-white/10 backdrop-blur"
-          >
-            <div className="flex flex-col">
-              {NAV_LINKS.map((l) => (
-                <Link
-                  key={l.href}
-                  href={l.href}
-                  onClick={close}
-                  className="rounded-lg px-3 py-3 text-white/90 transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-                >
-                  {l.label}
-                </Link>
-              ))}
-            </div>
-            <div className="mt-3 flex flex-col gap-3 border-t border-white/15 pt-4">
+      <Container className="md:hidden">
+        <nav
+          id="mobile-menu"
+          aria-label="Mobile"
+          inert={!open}
+          data-open={open ? "" : undefined}
+          className="mobile-drawer mb-4 rounded-2xl bg-brand-deep/95 p-4 shadow-xl ring-1 ring-white/10 backdrop-blur"
+        >
+          <div className="flex flex-col">
+            {NAV_LINKS.map((l) => (
               <Link
-                href="/login"
+                key={l.href}
+                href={l.href}
                 onClick={close}
                 className="rounded-lg px-3 py-3 text-white/90 transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
               >
-                Login
+                {l.label}
               </Link>
-              <PillLink
-                href="/inviterequest"
-                onClick={close}
-                variant="white"
-                className="w-full"
-              >
-                Request an Invite
-              </PillLink>
-            </div>
-          </nav>
-        </Container>
-      )}
+            ))}
+          </div>
+          <div className="mt-3 flex flex-col gap-3 border-t border-white/15 pt-4">
+            <Link
+              href="/login"
+              onClick={close}
+              className="rounded-lg px-3 py-3 text-white/90 transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+            >
+              Login
+            </Link>
+            <PillLink
+              href="/inviterequest"
+              onClick={close}
+              variant="white"
+              className="w-full"
+            >
+              Request an Invite
+            </PillLink>
+          </div>
+        </nav>
+      </Container>
     </header>
   );
 }

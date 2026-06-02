@@ -4,6 +4,7 @@ import { Container } from "@/components/ui/container";
 import { GreenHero } from "@/components/layout/green-hero";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { PillLink } from "@/components/ui/pill-button";
+import { Reveal } from "@/components/motion/reveal";
 import { StatCardRow } from "@/components/sections/stat-card";
 import { FeatureRow } from "@/components/sections/feature-row";
 import leafMark from "@/public/assets/agrovio-leaf.png";
@@ -72,136 +73,150 @@ export default function ProducerPage() {
       </GreenHero>
 
       {/* Marketplace + stats */}
-      <section className="py-16 sm:py-20">
-        <Container>
-          <div className="mx-auto max-w-2xl text-center">
-            <SectionHeading tone="brand">
-              Peru&rsquo;s and Latin America&rsquo;s Agro Produce Marketplace
-            </SectionHeading>
-            <p className="mt-4 text-lg text-ink/60">
-              List your harvest and get direct access to verified agro buyers,
-              exporters and processors actively looking for your produce.
-            </p>
-          </div>
-          <div className="mt-12">
-            <StatCardRow
-              stats={[
-                {
-                  value: "#1",
-                  label: "Peru",
-                  description: "In global blueberry and asparagus exports",
-                },
-                {
-                  value: "$12.8B",
-                  label: "Market",
-                  description: "Peru agro-export market for 2024",
-                },
-                {
-                  value: "2.2M+",
-                  label: "Farms",
-                  description: "Small & medium-size farms in Peru",
-                },
-              ]}
-            />
-          </div>
-        </Container>
-      </section>
+      <Reveal>
+        <section className="py-16 sm:py-20">
+          <Container>
+            <div className="mx-auto max-w-2xl text-center">
+              <SectionHeading tone="brand">
+                Peru&rsquo;s and Latin America&rsquo;s Agro Produce Marketplace
+              </SectionHeading>
+              <p className="mt-4 text-lg text-ink/60">
+                List your harvest and get direct access to verified agro buyers,
+                exporters and processors actively looking for your produce.
+              </p>
+            </div>
+            <div className="mt-12">
+              <StatCardRow
+                stats={[
+                  {
+                    value: "#1",
+                    label: "Peru",
+                    description: "In global blueberry and asparagus exports",
+                  },
+                  {
+                    value: "$12.8B",
+                    label: "Market",
+                    description: "Peru agro-export market for 2024",
+                  },
+                  {
+                    value: "2.2M+",
+                    label: "Farms",
+                    description: "Small & medium-size farms in Peru",
+                  },
+                ]}
+              />
+            </div>
+          </Container>
+        </section>
+      </Reveal>
 
       {/* List once → multiple offers */}
-      <FeatureRow
-        image={buyerOffers}
-        imageAlt="A produce listing on Agrovio with competing verified buyer offers"
-        imageSide="right"
-        eyebrow="Agrovio Marketplace"
-        heading="List once. Get multiple offers. Close faster."
-        body="List your harvest with grade, volume, pricing, and region — and immediately connect with verified buyers that want your produce. No more waiting for someone to show up at your farm."
-        bullets={[
-          "Choose from multiple buyer offers",
-          "See buyer profile, certifications, and purchase history",
-          "Buyers get instant alerts and respond fast",
-        ]}
-      />
+      <Reveal>
+        <FeatureRow
+          image={buyerOffers}
+          imageAlt="A produce listing on Agrovio with competing verified buyer offers"
+          imageSide="right"
+          eyebrow="Agrovio Marketplace"
+          heading="List once. Get multiple offers. Close faster."
+          body="List your harvest with grade, volume, pricing, and region — and immediately connect with verified buyers that want your produce. No more waiting for someone to show up at your farm."
+          bullets={[
+            "Choose from multiple buyer offers",
+            "See buyer profile, certifications, and purchase history",
+            "Buyers get instant alerts and respond fast",
+          ]}
+        />
+      </Reveal>
 
       {/* Chat */}
-      <FeatureRow
-        image={chatThread}
-        imageAlt="A bilingual buyer and producer negotiating a deal inside Agrovio Chat"
-        imageSide="left"
-        eyebrow="Agrovio Chat"
-        heading="Communicate with buyers directly on every deal"
-        body="Add context to your listing, negotiate price in real time, and show buyers what makes your harvest the right choice — before either side commits. Available in Spanish and English."
-      />
+      <Reveal>
+        <FeatureRow
+          image={chatThread}
+          imageAlt="A bilingual buyer and producer negotiating a deal inside Agrovio Chat"
+          imageSide="left"
+          eyebrow="Agrovio Chat"
+          heading="Communicate with buyers directly on every deal"
+          body="Add context to your listing, negotiate price in real time, and show buyers what makes your harvest the right choice — before either side commits. Available in Spanish and English."
+        />
+      </Reveal>
 
       {/* Notifications */}
-      <FeatureRow
-        image={notifications}
-        imageAlt="WhatsApp and in-app notifications alerting a producer to new buyer demand"
-        imageSide="right"
-        eyebrow="Never miss a buyer"
-        heading="Set it once and let the buyers come to you"
-        body="Save your produce preferences, harvest seasons, and regions — then get notified instantly via WhatsApp or email when a buyer is looking for exactly what you grow."
-        bullets={[
-          "WhatsApp & email instant notifications",
-          "Personalized alerts by produce type, grade, and region",
-          "No spam — only relevant buyer requests",
-        ]}
-      />
+      <Reveal>
+        <FeatureRow
+          image={notifications}
+          imageAlt="WhatsApp and in-app notifications alerting a producer to new buyer demand"
+          imageSide="right"
+          eyebrow="Never miss a buyer"
+          heading="Set it once and let the buyers come to you"
+          body="Save your produce preferences, harvest seasons, and regions — then get notified instantly via WhatsApp or email when a buyer is looking for exactly what you grow."
+          bullets={[
+            "WhatsApp & email instant notifications",
+            "Personalized alerts by produce type, grade, and region",
+            "No spam — only relevant buyer requests",
+          ]}
+        />
+      </Reveal>
 
       {/* Verified network */}
-      <FeatureRow
-        image={verifiedProfile}
-        imageAlt="A verified Agrovio producer profile with SENASA registration and trust score"
-        imageSide="left"
-        eyebrow="Verified Network"
-        heading="The only produce marketplace built and vetted for Latin America's agro market"
-        body="So you don't have to find buyers from scratch."
-        bullets={[
-          "Verified buyer profiles — exporters and processors with confirmed business history",
-          "Invoice verification — submit proof of transaction to build your seller profile and history",
-          "Ongoing trust monitoring — flags suspicious activity and protects both sides",
-          "Agrovio Chat profiles — MFA-protected accounts so you always know who you're talking to",
-        ]}
-      />
+      <Reveal>
+        <FeatureRow
+          image={verifiedProfile}
+          imageAlt="A verified Agrovio producer profile with SENASA registration and trust score"
+          imageSide="left"
+          eyebrow="Verified Network"
+          heading="The only produce marketplace built and vetted for Latin America's agro market"
+          body="So you don't have to find buyers from scratch."
+          bullets={[
+            "Verified buyer profiles — exporters and processors with confirmed business history",
+            "Invoice verification — submit proof of transaction to build your seller profile and history",
+            "Ongoing trust monitoring — flags suspicious activity and protects both sides",
+            "Agrovio Chat profiles — MFA-protected accounts so you always know who you're talking to",
+          ]}
+        />
+      </Reveal>
 
       {/* Grow cards */}
-      <section className="py-16 sm:py-24">
-        <Container>
-          <div className="mx-auto max-w-2xl text-center">
-            <SectionHeading>Grow Your Agro Business</SectionHeading>
-          </div>
-          <div className="mt-12 grid gap-6 sm:grid-cols-3">
-            <GrowCard title="Grow Your Buyer Base">
-              Access exporters and processors in your region — buyers who
-              actually compete for your produce.
-            </GrowCard>
-            <GrowCard title="Build a competitive edge">
-              Start now. Build the buyer relationships, market knowledge, and
-              pricing power your competitors don&rsquo;t have.
-            </GrowCard>
-            <GrowCard title="Become the producer they need">
-              Consistent quality, transparent listings, and verified history make
-              you the go-to supplier buyers keep coming back to.
-            </GrowCard>
-          </div>
-        </Container>
-      </section>
+      <Reveal>
+        <section className="py-16 sm:py-24">
+          <Container>
+            <div className="mx-auto max-w-2xl text-center">
+              <SectionHeading>Grow Your Agro Business</SectionHeading>
+            </div>
+            <div className="mt-12 grid gap-6 sm:grid-cols-3">
+              <GrowCard title="Grow Your Buyer Base">
+                Access exporters and processors in your region — buyers who
+                actually compete for your produce.
+              </GrowCard>
+              <GrowCard title="Build a competitive edge">
+                Start now. Build the buyer relationships, market knowledge, and
+                pricing power your competitors don&rsquo;t have.
+              </GrowCard>
+              <GrowCard title="Become the producer they need">
+                Consistent quality, transparent listings, and verified history make
+                you the go-to supplier buyers keep coming back to.
+              </GrowCard>
+            </div>
+          </Container>
+        </section>
+      </Reveal>
 
       {/* CTA */}
-      <section className="pb-20 sm:pb-28">
-        <Container>
-          <div className="overflow-hidden rounded-3xl bg-hero-gradient px-6 py-14 text-center text-white sm:px-12 sm:py-16">
-            <SectionHeading tone="white">Join Agrovio today</SectionHeading>
-            <p className="mx-auto mt-4 max-w-xl text-lg text-white/90">
-              One platform, priced to grow with your business.
-            </p>
-            <div className="mt-8 flex justify-center">
-              <PillLink href="/inviterequest" variant="white">
-                Get started
-              </PillLink>
+      <Reveal>
+        <section className="pb-20 sm:pb-28">
+          <Container>
+            <div className="overflow-hidden rounded-3xl bg-hero-gradient px-6 py-14 text-center text-white sm:px-12 sm:py-16">
+              <SectionHeading tone="white">Join Agrovio today</SectionHeading>
+              <p className="mx-auto mt-4 max-w-xl text-lg text-white/90">
+                One platform, priced to grow with your business.
+              </p>
+              <div className="mt-8 flex justify-center">
+                <PillLink href="/inviterequest" variant="white">
+                  Get started
+                </PillLink>
+              </div>
             </div>
-          </div>
-        </Container>
-      </section>
+          </Container>
+        </section>
+      </Reveal>
     </>
   );
 }
