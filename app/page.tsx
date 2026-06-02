@@ -23,7 +23,7 @@ export default function HomePage() {
       {/* Statement */}
       <section className="py-20 sm:py-28">
         <Container>
-          <p className="mx-auto max-w-4xl text-center text-3xl font-medium leading-tight tracking-tight text-ink/40 sm:text-[2.75rem] sm:leading-[1.15]">
+          <p className="mx-auto max-w-4xl text-center font-display text-3xl font-medium leading-tight tracking-tight text-ink/40 sm:text-[2.75rem] sm:leading-[1.15]">
             Turning every <span className="text-ink">harvest</span>, at every{" "}
             <span className="text-ink">grade</span>, into a business that works
             for <span className="text-ink">everyone</span>.
@@ -106,7 +106,7 @@ export default function HomePage() {
       {/* Mission band */}
       <section className="bg-hero-gradient py-20 text-white sm:py-28">
         <Container>
-          <p className="mx-auto max-w-4xl text-center text-2xl font-medium leading-snug tracking-tight sm:text-[2rem] sm:leading-[1.3]">
+          <p className="mx-auto max-w-4xl text-center font-display text-2xl font-medium leading-snug tracking-tight sm:text-[2rem] sm:leading-[1.3]">
             As Peru leads explosive growth in Latin American agro-exports,
             Agrovio is building software to simplify the entire produce sourcing
             process from growers to processors / agro-exporters — also known as
@@ -135,7 +135,7 @@ export default function HomePage() {
               <p className="text-sm font-medium uppercase tracking-[0.16em] text-brand-dark">
                 Founder &amp; CEO
               </p>
-              <p className="mt-2 text-3xl font-medium tracking-tight text-ink">
+              <p className="mt-2 font-display text-3xl font-medium tracking-tight text-ink">
                 Diego Torres
               </p>
               <p className="mt-4 text-lg leading-relaxed text-ink/60">
