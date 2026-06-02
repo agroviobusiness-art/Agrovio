@@ -74,7 +74,7 @@ export default function ProducerPage() {
 
       {/* Marketplace + stats */}
       <Reveal>
-        <section className="py-16 sm:py-20">
+        <section className="py-12 sm:py-20">
           <Container>
             <div className="mx-auto max-w-2xl text-center">
               <SectionHeading tone="brand">
@@ -176,7 +176,7 @@ export default function ProducerPage() {
 
       {/* Grow cards */}
       <Reveal>
-        <section className="py-16 sm:py-24">
+        <section className="py-12 sm:py-24">
           <Container>
             <div className="mx-auto max-w-2xl text-center">
               <SectionHeading>Grow Your Agro Business</SectionHeading>
@@ -201,7 +201,7 @@ export default function ProducerPage() {
 
       {/* CTA */}
       <Reveal>
-        <section className="pb-20 sm:pb-28">
+        <section className="pb-12 sm:pb-28">
           <Container>
             <div className="overflow-hidden rounded-3xl bg-hero-gradient px-6 py-14 text-center text-white sm:px-12 sm:py-16">
               <SectionHeading tone="white">Join Agrovio today</SectionHeading>

@@ -23,7 +23,7 @@ export default function HomePage() {
 
       {/* Statement */}
       <Reveal>
-        <section className="py-20 sm:py-28">
+        <section className="py-12 sm:py-28">
           <Container>
             <p className="mx-auto max-w-4xl text-center font-display text-3xl font-medium leading-tight tracking-tight text-ink/40 sm:text-[2.75rem] sm:leading-[1.15]">
               Turning every <span className="text-ink">harvest</span>, at every{" "}
@@ -36,7 +36,7 @@ export default function HomePage() {
 
       {/* Capacity + stats */}
       <Reveal>
-        <section className="py-16 sm:py-20">
+        <section className="py-12 sm:py-20">
           <Container>
             <div className="mx-auto max-w-2xl text-center">
               <SectionHeading tone="brand">
@@ -118,7 +118,7 @@ export default function HomePage() {
 
       {/* Mission band */}
       <Reveal className="reveal-fade">
-        <section className="bg-hero-gradient py-20 text-white sm:py-28">
+        <section className="bg-hero-gradient py-12 text-white sm:py-28">
           <Container>
             <p className="mx-auto max-w-4xl text-center font-display text-2xl font-medium leading-snug tracking-tight sm:text-[2rem] sm:leading-[1.3]">
               As Peru leads explosive growth in Latin American agro-exports,
@@ -132,7 +132,7 @@ export default function HomePage() {
 
       {/* Leadership */}
       <Reveal>
-        <section id="leadership" className="scroll-mt-28 py-20 sm:py-28">
+        <section id="leadership" className="scroll-mt-28 py-12 sm:py-28">
           <Container>
             <div className="mx-auto max-w-2xl text-center">
               <SectionHeading>Leadership Team</SectionHeading>
@@ -166,7 +166,7 @@ export default function HomePage() {
 
       {/* Investors */}
       <Reveal>
-        <section id="investors" className="scroll-mt-28 py-20 sm:py-24">
+        <section id="investors" className="scroll-mt-28 py-12 sm:py-24">
           <Container>
             <div className="mx-auto max-w-2xl text-center">
               <SectionHeading>Our investors</SectionHeading>
@@ -194,7 +194,7 @@ export default function HomePage() {
 
       {/* Invite form */}
       <Reveal>
-        <section id="invite" className="scroll-mt-28 py-20 sm:py-28">
+        <section id="invite" className="scroll-mt-28 py-12 sm:py-28">
           <Container>
             <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
               <div>

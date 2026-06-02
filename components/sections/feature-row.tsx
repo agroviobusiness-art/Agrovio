@@ -48,9 +48,9 @@ export function FeatureRow({
   const imageLeft = imageSide === "left";
 
   return (
-    <section className={cn("py-16 sm:py-24", className)}>
+    <section className={cn("py-12 sm:py-24", className)}>
       <Container>
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-16">
           {/* Visual — the product mockup, floated large on white like the
               reference (the trimmed PNGs carry their own soft shadow). */}
           <div className={cn("order-1", imageLeft ? "lg:order-1" : "lg:order-2")}>
