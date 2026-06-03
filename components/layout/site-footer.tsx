@@ -55,8 +55,12 @@ export function SiteFooter() {
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <Image src={logoWhite} alt="Agrovio" className="h-9 w-auto sm:h-10" />
-            <a href={`mailto:${SITE.email}`} className={`mt-5 inline-block text-sm text-white/90 ${LINK}`}>
-              {SITE.email}
+            <a
+              href={`mailto:${SITE.email}`}
+              aria-label={`Email Agrovio at ${SITE.email}`}
+              className={`mt-5 inline-block text-sm text-white/90 ${LINK}`}
+            >
+              {SITE.domain}
             </a>
           </div>
 

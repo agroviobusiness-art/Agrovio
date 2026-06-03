@@ -2,7 +2,7 @@
 
 export const SITE = {
   name: "Agrovio",
-  email: "agrovio.io@gmail.com",
+  email: "agroviobusiness@gmail.com",
   domain: "agrovio.io",
   description:
     "Agrovio is an invite-only B2B marketplace connecting agro-produce growers with verified buyers across Peru and Latin America.",
