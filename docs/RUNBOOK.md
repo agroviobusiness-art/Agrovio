@@ -57,7 +57,7 @@ available for 90 days after the pause).
 ## 4. Catch problems before users do (set up once)
 
 Add a free uptime monitor (e.g. **UptimeRobot** or **BetterStack** free tier):
-- Monitor **https://agrovio.vercel.app** every ~5 minutes.
+- Monitor **https://agrovio.io** every ~5 minutes (`agrovio.vercel.app` stays attached during the transition).
 - Alert by email (and/or Slack) on downtime.
 
 This covers both "site down" and "DB paused", and the periodic ping also helps

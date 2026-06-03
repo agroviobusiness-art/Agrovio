@@ -15,6 +15,7 @@ import notifications from "@/public/assets/producer-notifications.png";
 import verifiedProfile from "@/public/assets/producer-verified-profile.png";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/producer" },
   title: "For Producers",
   description:
     "Sell your harvest to the right buyer. Agrovio connects producers of every size with verified processors and agro-exporters across Peru and Latin America.",

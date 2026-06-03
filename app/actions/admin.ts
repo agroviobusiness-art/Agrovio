@@ -8,7 +8,7 @@ import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 // A long ban acts as a reversible "soft delete" — fully restorable via unban.
 const SOFT_DELETE_BAN = "876000h"; // ~100 years
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://agrovio.vercel.app";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://agrovio.io";
 
 export type LinkState = {
   ok: boolean;

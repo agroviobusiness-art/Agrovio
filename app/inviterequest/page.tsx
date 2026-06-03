@@ -4,6 +4,7 @@ import { Container } from "@/components/ui/container";
 import { InviteForm } from "@/components/forms/invite-form";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/inviterequest" },
   title: "Request an Invite",
   description:
     "Request an invite to join Agrovio — the invite-only B2B marketplace connecting agro-produce growers and verified buyers across Peru and LATAM.",

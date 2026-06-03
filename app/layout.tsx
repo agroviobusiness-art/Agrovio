@@ -27,6 +27,9 @@ export const metadata: Metadata = {
   // (NEXT_PUBLIC_SITE_URL), falling back to the intended brand domain so this
   // automatically follows the custom domain once it's pointed at the deploy.
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://agrovio.io"),
+  // Self-referencing canonical (home) so the still-attached agrovio.vercel.app
+  // and www defer to agrovio.io. Indexable child pages override with their path.
+  alternates: { canonical: "/" },
   title: {
     default: "Agrovio — Grow More. Sell More. Buy Faster.",
     template: "%s | Agrovio",

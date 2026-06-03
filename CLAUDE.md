@@ -5,7 +5,7 @@
 > Read this first, then skim **LESSONS.md** for the gotchas already hit (don't repeat them).
 
 ## What this is
-The **Agrovio** marketing site — an **invite-only B2B agro-produce marketplace** for Peru / LATAM. It's built **for a client** (agroviobusiness@gmail.com), not for the developer personally. Live at **https://agrovio.vercel.app**.
+The **Agrovio** marketing site — an **invite-only B2B agro-produce marketplace** for Peru / LATAM. It's built **for a client** (agroviobusiness@gmail.com), not for the developer personally. Live at **https://agrovio.io** (also reachable at `agrovio.vercel.app` during/after the domain cutover).
 
 ## Stack
 - **Next.js 16** (App Router) + **TypeScript** + **Tailwind v4** (tokens in `app/globals.css` `@theme`)
@@ -61,7 +61,7 @@ public/assets/                  Optimized images (raw originals are in the git-i
 ## Environment (`.env.local`, git-ignored — also set on Vercel prod+dev)
 ```
 NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY   # public, client-safe
-NEXT_PUBLIC_SITE_URL=https://agrovio.vercel.app           # used to build invite/reset links
+NEXT_PUBLIC_SITE_URL=https://agrovio.io                   # used to build invite/reset links
 RESEND_API_KEY                                            # server-only
 SUPABASE_SERVICE_ROLE_KEY                                 # server-only — admin portal needs it
 ADMIN_EMAILS=agroviobusiness@gmail.com                    # comma-separated allowlist for /admin

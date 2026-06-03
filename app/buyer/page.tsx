@@ -15,6 +15,7 @@ import notifications from "@/public/assets/buyer-notifications.png";
 import verifiedNetwork from "@/public/assets/buyer-verified-network.png";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/buyer" },
   title: "For Buyers",
   description:
     "Source verified produce with the grade, volume, and timing your business needs across Peru and LATAM.",

@@ -10,7 +10,7 @@ import {
   fieldErrorsFrom,
 } from "@/lib/validation";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://agrovio.vercel.app";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://agrovio.io";
 
 export type LoginState = {
   message: string;

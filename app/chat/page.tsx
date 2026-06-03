@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ComingSoon } from "@/components/sections/coming-soon";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/chat" },
   title: "Agrovio Chat",
   description:
     "Negotiate price, share harvest context, and close deals in real time — available in Spanish and English.",
