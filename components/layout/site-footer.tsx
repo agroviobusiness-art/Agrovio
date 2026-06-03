@@ -8,7 +8,7 @@ import { FOOTER, SITE } from "@/lib/content";
 import logoWhite from "@/public/assets/agrovio-logo-white.png";
 
 const LINK =
-  "rounded transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent";
+  "rounded transition-colors hover:text-wite focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent";
 
 function SocialIcon({ label }: { label: string }) {
   if (label.toLowerCase() === "instagram") {
@@ -60,7 +60,7 @@ export function SiteFooter() {
               aria-label={`Email Agrovio at ${SITE.email}`}
               className={`mt-5 inline-block text-sm text-white/90 ${LINK}`}
             >
-              {SITE.domain}
+              {SITE.email}
             </a>
           </div>
 
