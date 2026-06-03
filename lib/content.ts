@@ -30,7 +30,7 @@ export const FOOTER = {
     country: "Peru",
   },
   socials: [
-    { label: "Instagram", href: "https://instagram.com" },
+    { label: "Instagram", href: "https://www.instagram.com/agrovio_co" },
     { label: "X", href: "https://x.com" },
   ],
 };
