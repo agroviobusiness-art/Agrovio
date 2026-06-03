@@ -23,7 +23,10 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://agrovio.io"),
+  // Resolve OG/canonical URLs against the actually-serving origin
+  // (NEXT_PUBLIC_SITE_URL), falling back to the intended brand domain so this
+  // automatically follows the custom domain once it's pointed at the deploy.
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://agrovio.io"),
   title: {
     default: "Agrovio — Grow More. Sell More. Buy Faster.",
     template: "%s | Agrovio",
