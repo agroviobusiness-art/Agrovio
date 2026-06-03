@@ -120,9 +120,8 @@ export default function BuyerPage() {
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-white/90 sm:text-xl">
             Whether you&rsquo;re sourcing at scale or looking for a new supplier,
-            Agrovio gives you direct access to verified producers across Peru and
-            Latin America — so you find the right harvest, at the right grade, at
-            the right time.
+            Agrovio gives you direct access to verified producers so you find the
+            right harvest across Peru and LATAM.
           </p>
           <div className="mt-8 flex justify-center">
             <PillLink href="/inviterequest" variant="white">

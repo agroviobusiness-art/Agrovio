@@ -74,6 +74,7 @@ The smooth page-to-page crossfade + scroll reveals live in `components/motion/` 
 - The marketing `SiteHeader`/`SiteFooter` return `null` on `/admin` (via `usePathname`) so the portal has its own clean chrome.
 
 ## Working with this client
+- **Ship loop (client's standing rule): every change is reviewed by the agents, then pushed.** Don't leave finished work sitting uncommitted. After making a change: run the build (`npm run build`), pass it through the **`agrovio-security`** review gate (verdict must be SHIP) plus any relevant specialist (frontend/backend/database), then **commit and push to `main`** (which auto-deploys) — or deploy via CLI, **one at a time**. Even small copy edits follow this: review → push. The only thing that holds a push is the user explicitly saying it's WIP / not ready (e.g. the founder-bio removal that was deliberately withheld).
 - The client is **non-technical with Supabase** → prefer **in-app buttons** (the admin portal) over "go click this in the dashboard" wherever possible.
 - Do **one clean deploy** and verify it; don't spray multiple deploys (see Vercel notes).
 - For **data-sensitive features** (delete/recover, RLS, auth), verify against the live API/DB before shipping — we test with throwaway records and clean them up.
