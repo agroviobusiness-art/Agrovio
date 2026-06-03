@@ -12,7 +12,7 @@ import pricingData from "@/public/assets/buyer-pricing-data.png";
 import offers from "@/public/assets/buyer-offers.png";
 import dealAccepted from "@/public/assets/buyer-deal-accepted.png";
 import notifications from "@/public/assets/buyer-notifications.png";
-import verifiedProfile from "@/public/assets/buyer-verified-profile.png";
+import verifiedNetwork from "@/public/assets/buyer-verified-network.png";
 
 export const metadata: Metadata = {
   title: "For Buyers",
@@ -278,7 +278,7 @@ export default function BuyerPage() {
       {/* §7 Verified network */}
       <Reveal>
         <FeatureRow
-          image={verifiedProfile}
+          image={verifiedNetwork}
           imageAlt="A verified Agrovio buyer profile showing company registration, MFA status, transaction history, and trust score"
           imageSide="right"
           eyebrow="Verified Network"
