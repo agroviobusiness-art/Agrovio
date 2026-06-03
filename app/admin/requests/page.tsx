@@ -22,6 +22,7 @@ export default async function LeadsPage() {
     .order("created_at", { ascending: false });
 
   const rows = data ?? [];
+  const failedCount = rows.filter((r) => r.notification_failed).length;
 
   return (
     <div className="space-y-6">
@@ -33,6 +34,13 @@ export default async function LeadsPage() {
           Everyone who submitted the contact form — {rows.length} total.
         </p>
       </div>
+
+      {failedCount > 0 && (
+        <p className="rounded-lg bg-amber-50 px-4 py-3 text-sm text-amber-800">
+          ⚠ {failedCount} lead{failedCount === 1 ? "" : "s"} saved but the team
+          notification email didn&apos;t send — follow up manually below.
+        </p>
+      )}
 
       {error && (
         <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">
@@ -77,15 +85,22 @@ export default async function LeadsPage() {
                   <td className={TD}>{r.referral_source || "—"}</td>
                   <td className={TD}>{fmtDate(r.created_at)}</td>
                   <td className={TD}>
-                    <span
-                      className={
-                        r.status === "accepted"
-                          ? "rounded-full bg-brand/10 px-2 py-0.5 text-xs font-medium text-brand-dark"
-                          : "rounded-full bg-mist px-2 py-0.5 text-xs font-medium text-ink/60"
-                      }
-                    >
-                      {r.status === "accepted" ? "Accepted" : "New"}
-                    </span>
+                    <div className="flex flex-col items-start gap-1">
+                      <span
+                        className={
+                          r.status === "accepted"
+                            ? "rounded-full bg-brand/10 px-2 py-0.5 text-xs font-medium text-brand-dark"
+                            : "rounded-full bg-mist px-2 py-0.5 text-xs font-medium text-ink/60"
+                        }
+                      >
+                        {r.status === "accepted" ? "Accepted" : "New"}
+                      </span>
+                      {r.notification_failed && (
+                        <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800">
+                          ⚠ email failed
+                        </span>
+                      )}
+                    </div>
                   </td>
                   <td className={TD}>
                     <LeadActions id={r.id} email={r.email} status={r.status ?? "new"} />

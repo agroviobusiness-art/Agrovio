@@ -2,7 +2,6 @@
 
 import { headers } from "next/headers";
 import { createHash } from "crypto";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { inviteSchema, fieldErrorsFrom } from "@/lib/validation";
 import { sendInviteNotification } from "@/lib/email";
@@ -29,7 +28,13 @@ export async function inviteAction(
     };
   }
 
-  const supabase = await createSupabaseServerClient();
+  // Service-role client: used for the rate-limit RPC (not exposed to anon) and
+  // for the insert below. We need the inserted row's id back to flag it if the
+  // notification email fails, and the public RLS policy is insert-only with NO
+  // SELECT — so a returning insert via the anon client couldn't read the id. Zod
+  // (below) validates the payload more strictly than the table's WITH CHECK, and
+  // that WITH CHECK still guards any direct anon REST insert.
+  const admin = createSupabaseAdminClient();
 
   // 2. Per-IP rate limit: max 5 submissions/hour (atomic, via public.rate_limit_hit).
   const hdrs = await headers();
@@ -40,8 +45,7 @@ export async function inviteAction(
   ).trim();
   const rlKey =
     "invite:" + createHash("sha256").update(ip).digest("hex").slice(0, 40);
-  // Called with the service-role client — the function is not exposed to anon.
-  const { data: allowed, error: rlError } = await createSupabaseAdminClient().rpc(
+  const { data: allowed, error: rlError } = await admin.rpc(
     "rate_limit_hit",
     { p_key: rlKey, p_max: 5, p_window_seconds: 3600 }
   );
@@ -83,17 +87,21 @@ export async function inviteAction(
 
   const d = parsed.data;
 
-  const { error } = await supabase.from("invite_requests").insert({
-    first_name: d.firstName,
-    last_name: d.lastName,
-    email: d.email,
-    role: d.role,
-    phone: d.phone ?? null,
-    company: d.company ?? null,
-    job_title: d.jobTitle ?? null,
-    country: d.country ?? null,
-    referral_source: d.referralSource ?? null,
-  });
+  const { data: inserted, error } = await admin
+    .from("invite_requests")
+    .insert({
+      first_name: d.firstName,
+      last_name: d.lastName,
+      email: d.email,
+      role: d.role,
+      phone: d.phone ?? null,
+      company: d.company ?? null,
+      job_title: d.jobTitle ?? null,
+      country: d.country ?? null,
+      referral_source: d.referralSource ?? null,
+    })
+    .select("id")
+    .single();
 
   if (error) {
     // Log the failure (code/message only — never the submitted PII) so genuine
@@ -125,6 +133,20 @@ export async function inviteAction(
     });
   } catch (err) {
     console.error("invite notification email failed", err);
+    // Flag the saved row so the admin portal can surface it for manual
+    // follow-up (the lead itself is never lost — the row is the source of truth).
+    if (inserted?.id) {
+      const { error: flagError } = await admin
+        .from("invite_requests")
+        .update({ notification_failed: true })
+        .eq("id", inserted.id);
+      if (flagError) {
+        console.error("failed to flag invite_requests.notification_failed", {
+          code: flagError.code,
+          message: flagError.message,
+        });
+      }
+    }
   }
 
   return {
