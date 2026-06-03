@@ -47,11 +47,13 @@ lib/
   supabase/admin.ts             SERVICE-ROLE client — SERVER-ONLY, never import in a Client Component
   admin.ts                      requireAdmin() gate + ADMIN_EMAILS allowlist
   validation.ts (Zod) · email.ts (Resend) · content.ts · utils.ts
+supabase/migrations/            Version-controlled DB schema (mirror of the remote project) — see supabase/README.md
+docs/RUNBOOK.md                 1-page recovery runbook (bad deploy / data loss / paused Free project)
 public/assets/                  Optimized images (raw originals are in the git-ignored agrovio_assets/)
 ```
 
 ## How the main pieces work
-- **Contact form** (`/inviterequest` + home) → server action validates with Zod → inserts into Supabase `invite_requests` (RLS: insert-only, anon can't read) → Resend emails the team. Zod rules are stricter than the DB policy.
+- **Contact form** (`/inviterequest` + home) → server action validates with Zod → inserts into Supabase `invite_requests` (RLS: insert-only, anon can't read) → Resend emails the team. Zod rules are stricter than the DB policy. The insert runs via the **service-role** client so it can read the row id back; if the notification email fails, that row is flagged `notification_failed` and the admin **Invite requests** page surfaces "N leads where the email didn't send" (leads are never lost — the row is the source of truth).
 - **Invite-only auth**: public sign-ups are **disabled** in Supabase, so accounts only exist when the admin creates them. Login is sign-in only. `/auth/confirm` handles invite + reset email links (`verifyOtp` with `token_hash`), then `/account/update-password` (`updateUser`).
 - **Hidden admin portal** (`/admin`): gated by `requireAdmin()` (allowlist `ADMIN_EMAILS`). Non-admins get **`notFound()` (404)** — never a redirect — so the portal is undiscoverable. Admins are routed to `/admin` on login. It can: view leads, **Accept** a lead (invite + mark accepted), invite/reset via copy-able links, and **Remove (reversible ban) / Restore / Delete-forever** members.
 - **Invites/resets** are generated server-side with the service-role `admin.auth.generateLink` and currently shown as **copy-able links** (admin shares them). Auto-email to arbitrary recipients needs a verified Resend domain (see below).
@@ -70,6 +72,7 @@ ADMIN_EMAILS=agroviobusiness@gmail.com                    # comma-separated allo
 - **Via CLI:** `vercel --prod --yes --scope agroviobusiness-3730s-projects`
 - **Or push to `main`** — GitHub → Vercel auto-deploy works (the client's account).
 - **CRITICAL:** Hobby plan = **1 concurrent build**. Fire **one deploy at a time** and let it finish. Triggering several at once (e.g. a push + a CLI deploy together) jams the queue → deployments stick at `UNKNOWN` / 0ms. If that happens, delete the stuck deployments and run a single clean deploy. NEXT_PUBLIC/runtime env changes need a redeploy to take effect.
+- **Rollback / recovery:** a bad prod deploy is reversible in one click — Vercel → Deployments → last good one → **Promote to Production**. Full incident steps (data loss, paused Free project, uptime monitor) are in **`docs/RUNBOOK.md`**.
 
 ## Rules / do-not
 - **Never** commit secrets; service-role/secret keys are server-only (never `NEXT_PUBLIC`, never in a Client Component).
