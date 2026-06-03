@@ -154,10 +154,6 @@ export default function HomePage() {
                 <p className="mt-2 font-display text-3xl font-medium tracking-tight text-ink">
                   Diego Torres
                 </p>
-                <p className="mt-4 text-lg leading-relaxed text-ink/60">
-                  Building the sourcing infrastructure for Peru and Latin America’s
-                  agro-export economy — from growers to processors and exporters.
-                </p>
               </div>
             </div>
           </Container>

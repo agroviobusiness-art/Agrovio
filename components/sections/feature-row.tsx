@@ -25,6 +25,7 @@ export type FeatureRowProps = {
   imageSide?: "left" | "right";
   eyebrow?: string;
   heading: React.ReactNode;
+  /** Subheading rendered directly under the green heading. */
   lead?: string;
   bullets?: string[];
   /** Extra paragraph rendered after the lead (used when there are no bullets). */
@@ -66,8 +67,8 @@ export function FeatureRow({
           {/* Copy */}
           <div className={cn("order-2", imageLeft ? "lg:order-2" : "lg:order-1")}>
             {eyebrow && <Eyebrow className="mb-4">{eyebrow}</Eyebrow>}
-            {lead && <p className="mb-4 text-base text-ink/55">{lead}</p>}
             <SectionHeading tone="brand">{heading}</SectionHeading>
+            {lead && <p className="mt-4 text-lg text-ink/60">{lead}</p>}
             {body && <p className="mt-5 text-lg leading-relaxed text-ink/65">{body}</p>}
             {bullets && bullets.length > 0 && (
               <ul className="mt-7 space-y-4 text-base">
