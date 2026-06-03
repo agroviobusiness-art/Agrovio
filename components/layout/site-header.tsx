@@ -75,14 +75,19 @@ export function SiteHeader() {
   if (isAdmin) return null;
 
   return (
-    <header className="absolute inset-x-0 top-0 z-50 [view-transition-name:site-header]">
-      <div className="bg-black/20">
+    // `pointer-events-none` is load-bearing: this header is `absolute` and, on
+    // mobile, as tall as the always-rendered drawer (~507px), so its empty area
+    // would otherwise be an invisible click-wall over the top of the hero/page
+    // (e.g. the login fields). Re-enable pointer-events only on the real chrome
+    // (the bar below + the open drawer, which sets its own pointer-events:auto).
+    <header className="pointer-events-none absolute inset-x-0 top-0 z-50 [view-transition-name:site-header]">
+      <div className="pointer-events-auto bg-black/20">
         <p className="px-4 py-2.5 text-center text-[13px] font-light text-white/95">
           {ANNOUNCEMENT}
         </p>
       </div>
 
-      <Container>
+      <Container className="pointer-events-auto">
         <nav className="flex items-center justify-between gap-4 py-4" aria-label="Primary">
           <Logo onClick={close} />
 
