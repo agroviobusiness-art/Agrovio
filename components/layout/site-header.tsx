@@ -6,7 +6,8 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Container } from "@/components/ui/container";
 import { PillLink } from "@/components/ui/pill-button";
-import { NAV_LINKS, ANNOUNCEMENT } from "@/lib/content";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
+import { NAV_LINKS, NAV_LINKS_ES, ANNOUNCEMENT, ANNOUNCEMENT_ES } from "@/lib/content";
 import { cn } from "@/lib/utils";
 import leafMark from "@/public/assets/agrovio-leaf.png";
 
@@ -29,10 +30,10 @@ function CloseIcon() {
   );
 }
 
-function Logo({ onClick }: { onClick?: () => void }) {
+function Logo({ onClick, href }: { onClick?: () => void; href: string }) {
   return (
     <Link
-      href="/"
+      href={href}
       onClick={onClick}
       aria-label="Agrovio home"
       className="flex shrink-0 items-center gap-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
@@ -45,28 +46,28 @@ function Logo({ onClick }: { onClick?: () => void }) {
   );
 }
 
-/**
- * Transparent header overlaid on each page's green hero (matches the Framer
- * design). Absolutely positioned so the gradient shows through behind it; the
- * hero sections add top padding to clear it. Collapses to a drawer on mobile.
- */
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const toggleRef = useRef<HTMLButtonElement>(null);
   const close = () => setOpen(false);
 
-  // The admin portal has its own chrome — don't render the marketing nav there.
   const isAdmin = pathname?.startsWith("/admin");
+  const isSpanish = pathname?.startsWith("/es");
 
-  // Close the drawer on navigation and on Escape.
+  const navLinks = isSpanish ? NAV_LINKS_ES : NAV_LINKS;
+  const announcement = isSpanish ? ANNOUNCEMENT_ES : ANNOUNCEMENT;
+  const logoHref = isSpanish ? "/es" : "/";
+  const loginLabel = isSpanish ? "Iniciar sesión" : "Login";
+  const inviteLabel = isSpanish ? "Solicitar invitación" : "Request an Invite";
+
   useEffect(() => setOpen(false), [pathname]);
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== "Escape") return;
       setOpen(false);
-      toggleRef.current?.focus(); // return focus to the trigger (disclosure pattern)
+      toggleRef.current?.focus();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -75,24 +76,19 @@ export function SiteHeader() {
   if (isAdmin) return null;
 
   return (
-    // `pointer-events-none` is load-bearing: this header is `absolute` and, on
-    // mobile, as tall as the always-rendered drawer (~507px), so its empty area
-    // would otherwise be an invisible click-wall over the top of the hero/page
-    // (e.g. the login fields). Re-enable pointer-events only on the real chrome
-    // (the bar below + the open drawer, which sets its own pointer-events:auto).
     <header className="pointer-events-none absolute inset-x-0 top-0 z-50 [view-transition-name:site-header]">
       <div className="pointer-events-auto bg-black/20">
         <p className="px-4 py-2.5 text-center text-[13px] font-light text-white/95">
-          {ANNOUNCEMENT}
+          {announcement}
         </p>
       </div>
 
       <Container className="pointer-events-auto">
         <nav className="flex items-center justify-between gap-4 py-4" aria-label="Primary">
-          <Logo onClick={close} />
+          <Logo onClick={close} href={logoHref} />
 
           <div className="hidden items-center gap-8 md:flex">
-            {NAV_LINKS.map((l) => (
+            {navLinks.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
@@ -103,12 +99,13 @@ export function SiteHeader() {
             ))}
           </div>
 
-          <div className="hidden items-center gap-4 md:flex">
+          <div className="hidden items-center gap-3 md:flex">
+            <LanguageSwitcher />
             <Link href="/login" className={LINK}>
-              Login
+              {loginLabel}
             </Link>
             <PillLink href="/inviterequest" variant="black" size="sm">
-              Request an Invite
+              {inviteLabel}
             </PillLink>
           </div>
 
@@ -118,53 +115,38 @@ export function SiteHeader() {
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
-            aria-controls="mobile-menu"
-            className="inline-flex size-10 items-center justify-center rounded-full text-white transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 md:hidden"
+            className="pointer-events-auto flex h-10 w-10 items-center justify-center rounded text-white md:hidden"
           >
             {open ? <CloseIcon /> : <MenuIcon />}
           </button>
         </nav>
       </Container>
 
-      <Container className="md:hidden">
-        <nav
-          id="mobile-menu"
-          aria-label="Mobile"
-          inert={!open}
-          data-open={open ? "" : undefined}
-          className="mobile-drawer mb-4 rounded-2xl bg-brand-deep/95 p-4 shadow-xl ring-1 ring-white/10 backdrop-blur"
-        >
-          <div className="flex flex-col">
-            {NAV_LINKS.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                onClick={close}
-                className="rounded-lg px-3 py-3 text-white/90 transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-              >
-                {l.label}
-              </Link>
+      {/* Mobile drawer */}
+      {open && (
+        <div className="pointer-events-auto border-t border-white/10 bg-brand px-6 pb-6 pt-4 md:hidden">
+          <ul className="space-y-4">
+            {navLinks.map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} onClick={close} className={cn(LINK, "block text-base")}>
+                  {l.label}
+                </Link>
+              </li>
             ))}
-          </div>
-          <div className="mt-3 flex flex-col gap-3 border-t border-white/15 pt-4">
-            <Link
-              href="/login"
-              onClick={close}
-              className="rounded-lg px-3 py-3 text-white/90 transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-            >
-              Login
-            </Link>
-            <PillLink
-              href="/inviterequest"
-              onClick={close}
-              variant="white"
-              className="w-full"
-            >
-              Request an Invite
+          </ul>
+          <div className="mt-6 flex flex-col gap-3">
+            <div className="flex items-center gap-3">
+              <LanguageSwitcher />
+              <Link href="/login" onClick={close} className={cn(LINK, "text-base")}>
+                {loginLabel}
+              </Link>
+            </div>
+            <PillLink href="/inviterequest" variant="black" size="sm" className="w-full text-center">
+              {inviteLabel}
             </PillLink>
           </div>
-        </nav>
-      </Container>
+        </div>
+      )}
     </header>
   );
 }
