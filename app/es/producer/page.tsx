@@ -8,7 +8,6 @@ import { Reveal } from "@/components/motion/reveal";
 import { StatCardRow } from "@/components/sections/stat-card";
 import { FeatureRow } from "@/components/sections/feature-row";
 import heroListings from "@/public/assets/producer-hero-listings.png";
-import buyerOffers from "@/public/assets/producer-buyer-offers.png";
 import chatThread from "@/public/assets/producer-chat.png";
 import notifications from "@/public/assets/producer-notifications.png";
 import verifiedProfile from "@/public/assets/producer-verified-profile.png";
@@ -146,7 +145,7 @@ export default function ProducerPageES() {
                 <li className="flex gap-3"><span className="text-brand mt-0.5">✓</span><span>Calidad constante, publicaciones transparentes e historial verificado te convierten en el proveedor al que los compradores siempre vuelven.</span></li>
               </ul>
               <div className="mt-8">
-                <PillLink href="/inviterequest" variant="brand" size="lg">
+                <PillLink href="/inviterequest" variant="green">
                   Empieza ahora
                 </PillLink>
               </div>
