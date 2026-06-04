@@ -199,7 +199,7 @@ export default function BuyerPageES() {
             <div className="mx-auto max-w-2xl text-center">
               <SectionHeading>Únete a Agrovio hoy</SectionHeading>
               <div className="mt-8">
-                <PillLink href="/inviterequest" variant="brand" size="lg">Empieza ahora</PillLink>
+                <PillLink href="/inviterequest" variant="green">Empieza ahora</PillLink>
               </div>
             </div>
           </Container>
