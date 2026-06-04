@@ -1,44 +1,66 @@
-import { GreenHero } from "@/components/layout/green-hero";
+import type { Metadata } from "next";
+import Image from "next/image";
 import { Container } from "@/components/ui/container";
+import { GreenHero } from "@/components/layout/green-hero";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { FeatureRow } from "@/components/sections/feature-row";
-import { StatCardRow } from "@/components/sections/stat-card";
-import { Reveal } from "@/components/motion/reveal";
 import { PillLink } from "@/components/ui/pill-button";
-import bidCards from "@/public/assets/feature-bid-cards.png";
-import whatsappCards from "@/public/assets/feature-whatsapp-cards.png";
+import { Reveal } from "@/components/motion/reveal";
+import { StatCardRow } from "@/components/sections/stat-card";
+import { FeatureRow } from "@/components/sections/feature-row";
 import buyerBids from "@/public/assets/feature-buyer-bids.png";
 import pricingChart from "@/public/assets/feature-pricing-chart.png";
+import whatsappCards from "@/public/assets/feature-whatsapp-cards.png";
+import bidCards from "@/public/assets/feature-bid-cards.png";
+import leafMark from "@/public/assets/agrovio-leaf.png";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/es/buyer" },
+  title: "Para Compradores | Agrovio",
+  description:
+    "Abastécete de la cosecha verificada de Perú. Agrovio da acceso directo a productores verificados para encontrar la cosecha correcta en Perú y LATAM.",
+};
 
 export default function BuyerPageES() {
   return (
     <>
-      <GreenHero
-        eyebrow="PARA AGROEXPORTADORES Y PROCESADORES"
-        headline="Abastécete de la cosecha verificada de Perú. Directo del campo."
-        subheadline="Ya sea que compres a gran escala o busques un nuevo proveedor, Agrovio te da acceso directo a productores verificados para encontrar la cosecha correcta en Perú y LATAM."
-        ctaLabel="Solicitar invitación"
-        ctaHref="/inviterequest"
-      />
+      <GreenHero>
+        <div className="max-w-2xl">
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-white/60">
+            PARA AGROEXPORTADORES Y PROCESADORES
+          </p>
+          <h1 className="mt-4 text-[2.75rem] font-medium leading-[1.05] tracking-tight sm:text-6xl">
+            Abastécete de la cosecha verificada de Perú. Directo del campo.
+          </h1>
+          <p className="mt-6 max-w-xl text-lg text-white/80">
+            Ya sea que compres a gran escala o busques un nuevo proveedor, Agrovio te da acceso directo
+            a productores verificados para encontrar la cosecha correcta en Perú y LATAM.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <PillLink href="/inviterequest" variant="white">
+              <Image src={leafMark} alt="" className="h-5 w-auto" />
+              Solicitar invitación
+            </PillLink>
+          </div>
+        </div>
+      </GreenHero>
 
       {/* Stats */}
       <Reveal>
         <section className="py-12 sm:py-20">
           <Container>
             <div className="mx-auto max-w-2xl text-center">
-              <SectionHeading tone="brand">
-                Cobertura de productos a escala
-              </SectionHeading>
+              <SectionHeading tone="brand">Cobertura de productos a escala</SectionHeading>
               <p className="mt-4 text-lg text-ink/60">
-                Abastécete de cualquier tipo de cultivo y grado, con acceso directo a productores verificados en Perú y el resto de América Latina.
+                Abastécete de cualquier tipo de cultivo y grado, con acceso directo a productores
+                verificados en Perú y el resto de América Latina.
               </p>
             </div>
             <div className="mt-12">
               <StatCardRow
                 stats={[
-                  { value: "150+", label: "Productores — Agricultores verificados listos para abastecer" },
-                  { value: "22+", label: "Tipos de productos — Frutas y Hortalizas de variedades" },
-                  { value: "20+", label: "Disponibilidad — Publicaciones actualizadas en cada temporada de cosecha" },
+                  { value: "150+", label: "Productores verificados listos para abastecer" },
+                  { value: "22+", label: "Tipos de productos — Frutas y Hortalizas" },
+                  { value: "20+", label: "Publicaciones actualizadas por temporada" },
                 ]}
               />
             </div>
@@ -63,7 +85,7 @@ export default function BuyerPageES() {
         />
       </Reveal>
 
-      {/* Marketplace 2 — post once */}
+      {/* Marketplace 2 */}
       <Reveal>
         <FeatureRow
           image={buyerBids}
@@ -122,7 +144,7 @@ export default function BuyerPageES() {
             <ul className="mx-auto mt-10 max-w-2xl space-y-3 text-ink/80">
               {[
                 "Perfiles de productores verificados — agricultores con historial de granja y negocio confirmado",
-                "Verificación de facturas — los productores presentan comprobante de transacción para construir su historial de vendedor",
+                "Verificación de facturas — los productores presentan comprobante de transacción para construir su historial",
                 "Monitoreo continuo de confianza — detecta actividad sospechosa y protege a ambas partes",
                 "Perfiles de Agrovio Chat — cuentas protegidas con MFA para que siempre sepas con quién hablas",
               ].map((item) => (
@@ -143,7 +165,8 @@ export default function BuyerPageES() {
             <div className="mx-auto max-w-3xl">
               <SectionHeading className="text-center">Deja de abastecerte a ciegas</SectionHeading>
               <p className="mt-4 text-center text-ink/60">
-                El abastecimiento tradicional te deja dependiente de contactos personales y visitas de campo. Agrovio está diseñado para simplificarlo.
+                El abastecimiento tradicional te deja dependiente de contactos personales y visitas de campo.
+                Agrovio está diseñado para simplificarlo.
               </p>
               <div className="mt-10 overflow-hidden rounded-2xl border">
                 <table className="w-full text-sm">
