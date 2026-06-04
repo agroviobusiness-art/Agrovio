@@ -1,25 +1,51 @@
-import { GreenHero } from "@/components/layout/green-hero";
+import type { Metadata } from "next";
+import Image from "next/image";
 import { Container } from "@/components/ui/container";
+import { GreenHero } from "@/components/layout/green-hero";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { FeatureRow } from "@/components/sections/feature-row";
-import { StatCardRow } from "@/components/sections/stat-card";
-import { Reveal } from "@/components/motion/reveal";
 import { PillLink } from "@/components/ui/pill-button";
-import bidCards from "@/public/assets/feature-bid-cards.png";
-import whatsappCards from "@/public/assets/feature-whatsapp-cards.png";
-import buyerBids from "@/public/assets/feature-buyer-bids.png";
+import { Reveal } from "@/components/motion/reveal";
+import { StatCardRow } from "@/components/sections/stat-card";
+import { FeatureRow } from "@/components/sections/feature-row";
+import heroListings from "@/public/assets/producer-hero-listings.png";
+import buyerOffers from "@/public/assets/producer-buyer-offers.png";
+import chatThread from "@/public/assets/producer-chat.png";
+import notifications from "@/public/assets/producer-notifications.png";
+import verifiedProfile from "@/public/assets/producer-verified-profile.png";
+import leafMark from "@/public/assets/agrovio-leaf.png";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/es/producer" },
+  title: "Para Productores | Agrovio",
+  description:
+    "Vende tu cosecha al comprador correcto. Agrovio conecta productores de todos los tamaños con procesadores y agroexportadores verificados.",
+};
 
 export default function ProducerPageES() {
   return (
     <>
-      <GreenHero
-        eyebrow="PARA PEQUEÑOS, MEDIANOS Y GRANDES PRODUCTORES"
-        headline="Empieza a vender al comprador correcto. Hoy."
-        subheadline="Ya sea que cultives 1 hectárea o más de 100, Agrovio te conecta con procesadores y agroexportadores que buscan exactamente lo que produces."
-        ctaLabel="Solicitar invitación"
-        ctaHref="/inviterequest"
-      />
+      <GreenHero>
+        <div className="max-w-2xl">
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-white/60">
+            PARA PEQUEÑOS, MEDIANOS Y GRANDES PRODUCTORES
+          </p>
+          <h1 className="mt-4 text-[2.75rem] font-medium leading-[1.05] tracking-tight sm:text-6xl">
+            Empieza a vender al comprador correcto. Hoy.
+          </h1>
+          <p className="mt-6 max-w-xl text-lg text-white/80">
+            Ya sea que cultives 1 hectárea o más de 100, Agrovio te conecta con procesadores y
+            agroexportadores que buscan exactamente lo que produces.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <PillLink href="/inviterequest" variant="white">
+              <Image src={leafMark} alt="" className="h-5 w-auto" />
+              Solicitar invitación
+            </PillLink>
+          </div>
+        </div>
+      </GreenHero>
 
+      {/* Stats band */}
       <Reveal>
         <section className="py-12 sm:py-20">
           <Container>
@@ -28,13 +54,14 @@ export default function ProducerPageES() {
                 El marketplace de agroexportación de Perú y América Latina
               </SectionHeading>
               <p className="mt-4 text-lg text-ink/60">
-                Publica tu cosecha y obtén acceso directo a compradores agrícolas verificados, exportadores y procesadores que buscan activamente lo que produces.
+                Publica tu cosecha y obtén acceso directo a compradores agrícolas verificados,
+                exportadores y procesadores que buscan activamente lo que produces.
               </p>
             </div>
             <div className="mt-12">
               <StatCardRow
                 stats={[
-                  { value: "#1", label: "Perú — En exportaciones mundiales de arándanos y espárragos" },
+                  { value: "#1", label: "Perú en exportaciones mundiales de arándanos y espárragos" },
                   { value: "$12.8B", label: "Mercado de agroexportación peruano 2024" },
                   { value: "2.2M+", label: "Granjas pequeñas y medianas en Perú" },
                 ]}
@@ -44,10 +71,11 @@ export default function ProducerPageES() {
         </section>
       </Reveal>
 
+      {/* Marketplace feature */}
       <Reveal>
         <FeatureRow
-          image={bidCards}
-          imageAlt="Tarjeta de oferta en Agrovio"
+          image={heroListings}
+          imageAlt="Listados de cosecha en Agrovio"
           imageSide="left"
           eyebrow="AGROVIO MARKETPLACE"
           heading="Publica una vez. Recibe múltiples ofertas. Cierra más rápido."
@@ -60,9 +88,10 @@ export default function ProducerPageES() {
         />
       </Reveal>
 
+      {/* Chat feature */}
       <Reveal>
         <FeatureRow
-          image={whatsappCards}
+          image={chatThread}
           imageAlt="Chat con compradores en Agrovio"
           imageSide="right"
           eyebrow="AGROVIO CHAT"
@@ -71,9 +100,10 @@ export default function ProducerPageES() {
         />
       </Reveal>
 
+      {/* Notifications */}
       <Reveal>
         <FeatureRow
-          image={buyerBids}
+          image={notifications}
           imageAlt="Notificaciones de compradores en Agrovio"
           imageSide="left"
           eyebrow="NUNCA PIERDAS UN COMPRADOR"
@@ -86,41 +116,35 @@ export default function ProducerPageES() {
         />
       </Reveal>
 
+      {/* Verified network */}
       <Reveal>
-        <section className="bg-surface py-16 sm:py-24">
-          <Container>
-            <div className="mx-auto max-w-2xl text-center">
-              <p className="text-xs font-medium uppercase tracking-widest text-ink/50">RED VERIFICADA</p>
-              <SectionHeading className="mt-3">
-                El único marketplace agrícola construido y verificado para el mercado agro de Latinoamérica
-              </SectionHeading>
-              <p className="mt-4 text-ink/60">Para que no tengas que encontrar compradores desde cero.</p>
-            </div>
-            <ul className="mx-auto mt-10 max-w-2xl space-y-3 text-ink/80">
-              {[
-                "Perfiles de compradores verificados — exportadores y procesadores con historial comercial confirmado",
-                "Verificación de facturas — presenta comprobante de transacción para construir tu perfil y historial de vendedor",
-                "Monitoreo continuo de confianza — detecta actividad sospechosa y protege a ambas partes",
-                "Perfiles de Agrovio Chat — cuentas protegidas con MFA para que siempre sepas con quién hablas",
-              ].map((item) => (
-                <li key={item} className="flex gap-3">
-                  <span className="mt-0.5 text-brand">✓</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </Container>
-        </section>
+        <FeatureRow
+          image={verifiedProfile}
+          imageAlt="Perfil verificado en Agrovio"
+          imageSide="right"
+          eyebrow="RED VERIFICADA"
+          heading="El único marketplace agrícola construido y verificado para el mercado agro de Latinoamérica"
+          lead="Para que no tengas que encontrar compradores desde cero."
+          bullets={[
+            "Perfiles de compradores verificados — exportadores y procesadores con historial comercial confirmado",
+            "Verificación de facturas — presenta comprobante de transacción para construir tu perfil y historial",
+            "Monitoreo continuo de confianza — detecta actividad sospechosa y protege a ambas partes",
+            "Perfiles de Agrovio Chat — cuentas protegidas con MFA para que siempre sepas con quién hablas",
+          ]}
+        />
       </Reveal>
 
+      {/* CTA */}
       <Reveal>
-        <section className="py-16 sm:py-24">
+        <section className="bg-surface py-16 sm:py-24">
           <Container>
             <div className="mx-auto max-w-2xl text-center">
               <SectionHeading>Únete a Agrovio hoy</SectionHeading>
               <p className="mt-4 text-ink/60">Una plataforma, con precios que crecen con tu negocio.</p>
               <div className="mt-8">
-                <PillLink href="/inviterequest" variant="brand" size="lg">Empieza ahora</PillLink>
+                <PillLink href="/inviterequest" variant="brand" size="lg">
+                  Empieza ahora
+                </PillLink>
               </div>
             </div>
           </Container>
