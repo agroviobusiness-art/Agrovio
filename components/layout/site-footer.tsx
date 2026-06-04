@@ -4,11 +4,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Container } from "@/components/ui/container";
-import { FOOTER, SITE } from "@/lib/content";
+import { FOOTER, FOOTER_ES, SITE } from "@/lib/content";
 import logoWhite from "@/public/assets/agrovio-logo-white.png";
 
 const LINK =
-  "rounded transition-colors hover:text-wite focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent";
+  "rounded transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent";
 
 function SocialIcon({ label }: { label: string }) {
   if (label.toLowerCase() === "instagram") {
@@ -20,7 +20,6 @@ function SocialIcon({ label }: { label: string }) {
       </svg>
     );
   }
-  // X / Twitter
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
       <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
@@ -49,6 +48,16 @@ export function SiteFooter() {
   const pathname = usePathname();
   if (pathname?.startsWith("/admin")) return null;
 
+  const isSpanish = pathname?.startsWith("/es");
+  const footer = isSpanish ? FOOTER_ES : FOOTER;
+  const companyTitle = isSpanish ? "Detalles de la empresa" : "Company Details";
+  const navTitle = isSpanish ? "Navegación" : "Navigation";
+  const followTitle = isSpanish ? "Síguenos" : "Follow";
+  const tagline = isSpanish
+    ? "Marketplace agrícola solo por invitación · Perú y LATAM"
+    : "Invite-only agro-produce marketplace · Peru & LATAM";
+  const copyright = `©2026 ${SITE.name}`;
+
   return (
     <footer className="bg-brand text-white [view-transition-name:site-footer]">
       <Container className="py-14 sm:py-16">
@@ -64,15 +73,15 @@ export function SiteFooter() {
             </a>
           </div>
 
-          <FooterColumn title="Company Details">
-            <p>{FOOTER.company.name}</p>
-            <p className="leading-relaxed text-white/80">{FOOTER.company.addressLine}</p>
-            <p className="text-white/80">{FOOTER.company.country}</p>
+          <FooterColumn title={companyTitle}>
+            <p>{footer.company.name}</p>
+            <p className="leading-relaxed text-white/80">{footer.company.addressLine}</p>
+            <p className="text-white/80">{footer.company.country}</p>
           </FooterColumn>
 
-          <FooterColumn title="Navigation">
+          <FooterColumn title={navTitle}>
             <ul className="space-y-2">
-              {FOOTER.navigation.map((n) => (
+              {footer.navigation.map((n) => (
                 <li key={n.label}>
                   <Link href={n.href} className={LINK}>
                     {n.label}
@@ -82,9 +91,9 @@ export function SiteFooter() {
             </ul>
           </FooterColumn>
 
-          <FooterColumn title="Follow">
+          <FooterColumn title={followTitle}>
             <div className="flex items-center gap-3">
-              {FOOTER.socials.map((s) => (
+              {footer.socials.map((s) => (
                 <a
                   key={s.label}
                   href={s.href}
@@ -101,8 +110,8 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-12 flex flex-col gap-2 border-t border-white/20 pt-6 text-sm text-white/80 sm:flex-row sm:items-center sm:justify-between">
-          <p>©2026 {SITE.name}</p>
-          <p className="text-white/70">Invite-only agro-produce marketplace · Peru &amp; LATAM</p>
+          <p>{copyright}</p>
+          <p className="text-white/70">{tagline}</p>
         </div>
       </Container>
     </footer>
