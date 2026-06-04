@@ -1,205 +1,204 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import { Container } from "@/components/ui/container";
-import { GreenHero } from "@/components/layout/green-hero";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { Badge } from "@/components/ui/badge";
+import { GreenHero } from "@/components/layout/green-hero";
 import { PillLink } from "@/components/ui/pill-button";
 import { Reveal } from "@/components/motion/reveal";
 import { StatCardRow } from "@/components/sections/stat-card";
 import { FeatureRow } from "@/components/sections/feature-row";
+import { InviteForm } from "@/components/forms/invite-form";
+import bidCards from "@/public/assets/feature-bid-cards.png";
+import whatsappCards from "@/public/assets/feature-whatsapp-cards.png";
 import buyerBids from "@/public/assets/feature-buyer-bids.png";
 import pricingChart from "@/public/assets/feature-pricing-chart.png";
-import whatsappCards from "@/public/assets/feature-whatsapp-cards.png";
-import bidCards from "@/public/assets/feature-bid-cards.png";
+import heroMock from "@/public/assets/hero-loadboard.png";
 import leafMark from "@/public/assets/agrovio-leaf.png";
+import founderPhoto from "@/public/assets/founder-diego-torres.jpg";
+import investorLogo from "@/public/assets/investor-santa-sofia.jpeg";
 
-export const metadata: Metadata = {
-  alternates: { canonical: "/es/buyer" },
-  title: "Para Compradores | Agrovio",
-  description:
-    "Abastécete de cosechas verificadas de Perú. Agrovio da acceso directo a productores verificados para encontrar la cosecha indicada en todo Perú y LATAM.",
-};
-
-export default function BuyerPageES() {
+export default function HomePageES() {
   return (
     <>
+      {/* Hero */}
       <GreenHero>
-        <div className="max-w-2xl">
-          <p className="text-xs font-medium uppercase tracking-[0.18em] text-white/60">
-            PARA AGROEXPORTADORES Y PROCESADORES
-          </p>
-          <h1 className="mt-4 text-[2.75rem] font-medium leading-[1.05] tracking-tight sm:text-6xl">
-            Abastécete de cosechas verificadas de Perú. Directo desde el campo.
-          </h1>
-          <p className="mt-6 max-w-xl text-lg text-white/80">
-            Ya sea que compres a gran escala o busques un nuevo proveedor, Agrovio te da acceso directo
-            a productores verificados para que encuentres la cosecha indicada en todo Perú y LATAM.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <PillLink href="/inviterequest" variant="white">
-              <Image src={leafMark} alt="" className="h-5 w-auto" />
-              Solicita tu acceso
-            </PillLink>
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-8">
+          <div>
+            <h1 className="text-[2.75rem] font-medium leading-[1.02] tracking-tight sm:text-6xl lg:text-[5rem]">
+              <span className="block">Produce más.</span>
+              <span className="block">Vende más.</span>
+              <span className="block">Compra más rápido.</span>
+            </h1>
+            <p className="mt-6 max-w-xl text-lg text-white/90 sm:text-xl">
+              Colabora a través de nuestro marketplace solo por invitación
+            </p>
+            <div className="mt-8">
+              <PillLink href="/inviterequest" variant="white">
+                <Image src={leafMark} alt="" className="h-5 w-auto" />
+                Solicita tu acceso
+              </PillLink>
+            </div>
+            <p className="mt-6 text-sm text-white/60">Con la confianza de +100 empresas agro</p>
+          </div>
+          <div className="hidden lg:block">
+            <Image src={heroMock} alt="Panel de Agrovio" className="w-full rounded-2xl shadow-2xl" />
           </div>
         </div>
       </GreenHero>
+
+      {/* Tagline */}
+      <Reveal>
+        <section className="py-12 sm:py-28">
+          <Container>
+            <p className="mx-auto max-w-4xl text-center font-display text-3xl font-medium leading-tight tracking-tight text-ink/40 sm:text-[2.75rem] sm:leading-[1.15]">
+              Convirtiendo cada <span className="text-ink">cosecha</span>, en cada{" "}
+              <span className="text-ink">grado</span>, en un negocio que funciona para{" "}
+              <span className="text-ink">todos</span>.
+            </p>
+          </Container>
+        </section>
+      </Reveal>
 
       {/* Stats */}
       <Reveal>
         <section className="py-12 sm:py-20">
           <Container>
             <div className="mx-auto max-w-2xl text-center">
-              <SectionHeading tone="brand">Cobertura de productos a escala</SectionHeading>
+              <SectionHeading tone="brand">Accede a capacidad confiable en Perú y LATAM</SectionHeading>
               <p className="mt-4 text-lg text-ink/60">
-                Abastécete de cualquier tipo de cultivo y grado, con acceso directo a productores
-                verificados en Perú y el resto de Latinoamérica.
+                Trabaja con una red seleccionada de expertos en comercio agrícola.
               </p>
             </div>
             <div className="mt-12">
               <StatCardRow
                 stats={[
-                  { value: "150+", label: "Productores — Agricultores verificados listos para abastecer" },
-                  { value: "22+", label: "Tipos de productos — Frutas y Hortalizas de variedades" },
-                  { value: "20+", label: "Disponibilidad — Publicaciones actualizadas en cada temporada de cosecha" },
+                  { value: "22+", label: "Variedades de productos" },
+                  { value: "20+", label: "Regiones" },
+                  { value: "150+", label: "Productores y Procesadores" },
                 ]}
               />
             </div>
+            <div className="mt-10 flex justify-center">
+              <Badge>Red exclusiva de productores y compradores — Conéctate y negocia más rápido. 24/7</Badge>
+            </div>
           </Container>
         </section>
       </Reveal>
 
-      {/* Marketplace 1 — pricing */}
-      <Reveal>
-        <FeatureRow
-          image={pricingChart}
-          imageAlt="Datos de precios en tiempo real en Agrovio"
-          imageSide="right"
-          eyebrow="AGROVIO MARKETPLACE"
-          heading="Accede a datos precisos de precios de productos agrícolas"
-          lead="Precios en tiempo real de transacciones verificadas — para que negocies más rápido y protejas tu margen."
-          bullets={[
-            "Compra en el spot — encuentra productos disponibles al instante, desde donde estés",
-            "Planificación por temporada — organiza tus compras antes de la cosecha con compromisos de productores",
-            "Benchmark y negocia — consulta rangos de precios de mercado y negocia directo por Agrovio Chat",
-          ]}
-        />
-      </Reveal>
-
-      {/* Marketplace 2 */}
-      <Reveal>
-        <FeatureRow
-          image={buyerBids}
-          imageAlt="Múltiples ofertas de productores en Agrovio"
-          imageSide="left"
-          eyebrow="AGROVIO MARKETPLACE"
-          heading="Publica una vez. Recibe múltiples ofertas. Abastécete al instante."
-          bullets={[
-            "Elige entre múltiples respuestas de productores",
-            "Revisa certificaciones, regiones e historial de transacciones de cada productor",
-            "Los productores reciben alertas al instante y responden rápido",
-          ]}
-        />
-      </Reveal>
-
-      {/* Chat */}
-      <Reveal>
-        <FeatureRow
-          image={whatsappCards}
-          imageAlt="Chat con productores en Agrovio"
-          imageSide="right"
-          eyebrow="AGROVIO CHAT"
-          heading="Comunícate y negocia en tiempo real con productores en cada trato"
-          lead="Agrega contexto a tu solicitud de abastecimiento, negocia el precio en tiempo real y confirma los detalles de calidad antes de que cualquiera se comprometa. Disponible en español e inglés con traducción instantánea."
-        />
-      </Reveal>
-
-      {/* Notifications */}
+      {/* Feature rows */}
       <Reveal>
         <FeatureRow
           image={bidCards}
-          imageAlt="Notificaciones de cosecha en Agrovio"
+          imageAlt="Tarjeta de oferta y contra-oferta en Agrovio"
           imageSide="left"
-          eyebrow="NUNCA PIERDAS UNA COSECHA"
-          heading="Configúralo una vez y deja que los productos lleguen a ti"
+          lead="Mayor cobertura significa que puedes enfocarte en aumentar tu volumen, construir relaciones y resolver problemas."
+          heading="Conecta y negocia más rápido. 24/7"
           bullets={[
-            "Notificaciones instantáneas por WhatsApp y correo",
-            "Alertas personalizadas por tipo de producto, categoría y región",
-            "Sin publicaciones irrelevantes — solo productos que se ajustan a tu red",
+            "Publica tu cosecha en minutos",
+            "Conéctate con compradores agro verificados",
+            "Disponible en toda Latinoamérica",
           ]}
         />
       </Reveal>
 
-      {/* Verified network */}
       <Reveal>
-        <section className="bg-surface py-16 sm:py-24">
+        <FeatureRow
+          image={whatsappCards}
+          imageAlt="Notificaciones de trato por WhatsApp de Agrovio"
+          imageSide="right"
+          lead="Diseñado para manejar las complejidades del acopio agrícola."
+          heading="Diseñado para el mercado agro de Perú y Latinoamérica"
+          bullets={[
+            "Integraciones WhatsApp",
+            "Disponible en inglés y español",
+            "Publicación de productos con detalles de categoría, volumen y precio",
+          ]}
+        />
+      </Reveal>
+
+      <Reveal>
+        <FeatureRow
+          image={buyerBids}
+          imageAlt="Tabla de ofertas verificadas de compradores"
+          imageSide="left"
+          heading="Desbloquea el potencial total de tu red"
+          bullets={[
+            "Centraliza tus ofertas y publicaciones en un solo lugar",
+            "Encuentra nuevos compradores agro y descubre demanda en tu red que no sabías que existía",
+          ]}
+        />
+      </Reveal>
+
+      <Reveal>
+        <FeatureRow
+          image={pricingChart}
+          imageAlt="Precios de productos en tiempo real"
+          imageSide="right"
+          heading="Accede a datos precisos de precios de productos agrícolas"
+          body="Ponle precio a tu cosecha con datos de transacciones verificadas en el marketplace. Actualizado en tiempo real y disponible al instante para que puedas negociar más rápido, cerrar mejores tratos y proteger tu margen."
+        />
+      </Reveal>
+
+      {/* Mission band */}
+      <Reveal className="reveal-fade">
+        <section className="bg-brand py-16 sm:py-24">
           <Container>
-            <div className="mx-auto max-w-2xl text-center">
-              <p className="text-xs font-medium uppercase tracking-widest text-ink/50">RED VERIFICADA</p>
-              <SectionHeading className="mt-3">
-                El único marketplace agrícola construido y verificado para el mercado agro de Perú y Latinoamérica
-              </SectionHeading>
+            <div className="mx-auto max-w-3xl text-center text-white">
+              <p className="text-lg leading-relaxed sm:text-xl">
+                Mientras Perú lidera el crecimiento explosivo de las agroexportaciones en Latinoamérica,
+                Agrovio está desarrollando software para simplificar todo el proceso de acopio agrícola
+                — desde los productores hasta los procesadores y agroexportadores.
+              </p>
             </div>
-            <ul className="mx-auto mt-10 max-w-2xl space-y-3 text-ink/80">
-              {[
-                "Perfiles de productores verificados — agricultores con historial de fundo y negocio confirmado",
-                "Verificación de facturas — los productores presentan comprobantes para construir su historial como vendedores",
-                "Monitoreo continuo de confianza — detecta actividad sospechosa y protege a ambas partes",
-                "Perfiles en Agrovio Chat — cuentas protegidas con MFA para que siempre sepas con quién hablas",
-              ].map((item) => (
-                <li key={item} className="flex gap-3">
-                  <span className="mt-0.5 text-brand">✓</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
           </Container>
         </section>
       </Reveal>
 
-      {/* Comparison table */}
+      {/* Leadership */}
       <Reveal>
-        <section className="py-16 sm:py-24">
+        <section id="leadership" className="py-16 sm:py-24">
           <Container>
-            <div className="mx-auto max-w-3xl">
-              <SectionHeading className="text-center">Amplía tu base de compradores</SectionHeading>
-              <div className="mt-10 overflow-hidden rounded-2xl border">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b bg-surface">
-                      <th className="p-4 text-left font-medium text-ink/60"></th>
-                      <th className="p-4 text-left font-medium">Abastecimiento tradicional</th>
-                      <th className="p-4 text-left font-medium text-brand">Agrovio</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y">
-                    {[
-                      ["Costo", "Alto — visitas de campo e intermediarios", "Por suscripción, sin costos ocultos"],
-                      ["Calidad del productor", "Sin verificar, historial desconocido", "Perfiles verificados y de confianza"],
-                      ["Disponibilidad", "Solo lo que conoces", "Publicaciones en tiempo real en todo Perú"],
-                      ["Alcance geográfico", "Solo contactos locales", "A nivel nacional, en expansión hacia LATAM"],
-                    ].map(([label, trad, agrovio]) => (
-                      <tr key={label}>
-                        <td className="p-4 font-medium text-ink/60">{label}</td>
-                        <td className="p-4 text-ink/60">{trad}</td>
-                        <td className="p-4 font-medium text-brand">{agrovio}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+            <div className="mx-auto max-w-2xl text-center">
+              <SectionHeading>Equipo directivo</SectionHeading>
+            </div>
+            <div className="mt-12 flex justify-center">
+              <div className="text-center">
+                <Image src={founderPhoto} alt="Diego Torres" className="mx-auto h-32 w-32 rounded-full object-cover" />
+                <p className="mt-4 text-xs font-medium uppercase tracking-widest text-ink/50">FUNDADOR Y CEO</p>
+                <p className="mt-1 text-lg font-medium">Diego Torres</p>
               </div>
             </div>
           </Container>
         </section>
       </Reveal>
 
-      {/* CTA */}
+      {/* Investors */}
+      <Reveal>
+        <section id="investors" className="border-t py-16 sm:py-24">
+          <Container>
+            <div className="mx-auto max-w-2xl text-center">
+              <SectionHeading>Nuestros inversores</SectionHeading>
+            </div>
+            <div className="mt-10 flex justify-center">
+              <Image src={investorLogo} alt="Santa Sofia del Sur" className="h-16 w-auto object-contain" />
+            </div>
+          </Container>
+        </section>
+      </Reveal>
+
+      {/* Invite form */}
       <Reveal>
         <section className="bg-surface py-16 sm:py-24">
           <Container>
-            <div className="mx-auto max-w-2xl text-center">
-              <SectionHeading>Únete a Agrovio hoy</SectionHeading>
-              <div className="mt-8">
-                <PillLink href="/inviterequest" variant="green">Empieza ahora</PillLink>
+            <div className="mx-auto max-w-xl">
+              <SectionHeading className="text-center">
+                Solicita tu invitación para unirte a Agrovio hoy.
+              </SectionHeading>
+              <p className="mt-3 text-center text-ink/60">
+                Cuéntanos un poco sobre tu operación y nos pondremos en contacto contigo.
+              </p>
+              <div className="mt-10">
+                <InviteForm />
               </div>
             </div>
           </Container>
