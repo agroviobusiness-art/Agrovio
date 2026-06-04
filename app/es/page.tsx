@@ -1,10 +1,10 @@
 import Image from "next/image";
-import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Badge } from "@/components/ui/badge";
+import { GreenHero } from "@/components/layout/green-hero";
+import { PillLink } from "@/components/ui/pill-button";
 import { Reveal } from "@/components/motion/reveal";
-import { HomeHero } from "@/components/sections/home-hero";
 import { StatCardRow } from "@/components/sections/stat-card";
 import { FeatureRow } from "@/components/sections/feature-row";
 import { InviteForm } from "@/components/forms/invite-form";
@@ -12,20 +12,39 @@ import bidCards from "@/public/assets/feature-bid-cards.png";
 import whatsappCards from "@/public/assets/feature-whatsapp-cards.png";
 import buyerBids from "@/public/assets/feature-buyer-bids.png";
 import pricingChart from "@/public/assets/feature-pricing-chart.png";
+import heroMock from "@/public/assets/hero-loadboard.png";
+import leafMark from "@/public/assets/agrovio-leaf.png";
 import founderPhoto from "@/public/assets/founder-diego-torres.jpg";
 import investorLogo from "@/public/assets/investor-santa-sofia.jpeg";
-import southAmericaMap from "@/public/assets/south-america-map.jpg";
 
 export default function HomePageES() {
   return (
     <>
-      <HomeHero
-        headline={["Crece Más.", "Vende Más.", "Compra Más Rápido."]}
-        subheadline="Colabora a través de nuestro marketplace solo por invitación"
-        ctaLabel="Solicitar invitación"
-        ctaHref="/inviterequest"
-        socialProof="Usado por +100 empresas agrícolas"
-      />
+      {/* Hero */}
+      <GreenHero>
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-8">
+          <div>
+            <h1 className="text-[2.75rem] font-medium leading-[1.02] tracking-tight sm:text-6xl lg:text-[5rem]">
+              <span className="block">Crece Más.</span>
+              <span className="block">Vende Más.</span>
+              <span className="block">Compra Más Rápido.</span>
+            </h1>
+            <p className="mt-6 max-w-xl text-lg text-white/90 sm:text-xl">
+              Colabora a través de nuestro marketplace solo por invitación
+            </p>
+            <div className="mt-8">
+              <PillLink href="/inviterequest" variant="white">
+                <Image src={leafMark} alt="" className="h-5 w-auto" />
+                Solicitar invitación
+              </PillLink>
+            </div>
+            <p className="mt-6 text-sm text-white/60">Usado por +100 empresas agrícolas</p>
+          </div>
+          <div className="hidden lg:block">
+            <Image src={heroMock} alt="Panel de Agrovio" className="w-full rounded-2xl shadow-2xl" />
+          </div>
+        </div>
+      </GreenHero>
 
       {/* Tagline */}
       <Reveal>
@@ -45,9 +64,7 @@ export default function HomePageES() {
         <section className="py-12 sm:py-20">
           <Container>
             <div className="mx-auto max-w-2xl text-center">
-              <SectionHeading tone="brand">
-                Accede a capacidad confiable en Perú y LATAM
-              </SectionHeading>
+              <SectionHeading tone="brand">Accede a capacidad confiable en Perú y LATAM</SectionHeading>
               <p className="mt-4 text-lg text-ink/60">
                 Trabaja con una red seleccionada de expertos en comercio agrícola.
               </p>
@@ -115,7 +132,7 @@ export default function HomePageES() {
       <Reveal>
         <FeatureRow
           image={pricingChart}
-          imageAlt="Precios de productos en tiempo real con tendencia de 8 semanas"
+          imageAlt="Precios de productos en tiempo real"
           imageSide="right"
           heading="Accede a datos precisos de precios de productos agrícolas"
           body="Ponle precio a tu cosecha con datos de transacciones verificadas en el marketplace. Actualizado en tiempo real y disponible al instante para que puedas negociar más rápido, cerrar mejores tratos y proteger tu margen."
@@ -130,8 +147,7 @@ export default function HomePageES() {
               <p className="text-lg leading-relaxed sm:text-xl">
                 Mientras Perú lidera el crecimiento explosivo de las agroexportaciones en América Latina,
                 Agrovio está construyendo software para simplificar todo el proceso de abastecimiento de
-                productos agrícolas desde productores hasta procesadores y agroexportadores — también
-                conocido como acopio.
+                productos agrícolas desde productores hasta procesadores y agroexportadores — también conocido como acopio.
               </p>
             </div>
           </Container>
@@ -147,14 +163,8 @@ export default function HomePageES() {
             </div>
             <div className="mt-12 flex justify-center">
               <div className="text-center">
-                <Image
-                  src={founderPhoto}
-                  alt="Diego Torres"
-                  className="mx-auto h-32 w-32 rounded-full object-cover"
-                />
-                <p className="mt-4 text-xs font-medium uppercase tracking-widest text-ink/50">
-                  FUNDADOR Y CEO
-                </p>
+                <Image src={founderPhoto} alt="Diego Torres" className="mx-auto h-32 w-32 rounded-full object-cover" />
+                <p className="mt-4 text-xs font-medium uppercase tracking-widest text-ink/50">FUNDADOR Y CEO</p>
                 <p className="mt-1 text-lg font-medium">Diego Torres</p>
               </div>
             </div>
@@ -188,7 +198,7 @@ export default function HomePageES() {
                 Cuéntanos un poco sobre tu operación y nos pondremos en contacto.
               </p>
               <div className="mt-10">
-                <InviteForm lang="es" />
+                <InviteForm />
               </div>
             </div>
           </Container>
