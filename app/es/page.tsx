@@ -25,9 +25,9 @@ export default function HomePageES() {
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-8">
           <div>
             <h1 className="text-[2.75rem] font-medium leading-[1.02] tracking-tight sm:text-6xl lg:text-[5rem]">
-              <span className="block">Crece Más.</span>
-              <span className="block">Vende Más.</span>
-              <span className="block">Compra Más Rápido.</span>
+              <span className="block">Produce más.</span>
+              <span className="block">Vende más.</span>
+              <span className="block">Compra más rápido.</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg text-white/90 sm:text-xl">
               Colabora a través de nuestro marketplace solo por invitación
@@ -35,10 +35,10 @@ export default function HomePageES() {
             <div className="mt-8">
               <PillLink href="/inviterequest" variant="white">
                 <Image src={leafMark} alt="" className="h-5 w-auto" />
-                Solicitar invitación
+                Solicita tu acceso
               </PillLink>
             </div>
-            <p className="mt-6 text-sm text-white/60">Usado por +100 empresas agrícolas</p>
+            <p className="mt-6 text-sm text-white/60">Con la confianza de +100 empresas agro</p>
           </div>
           <div className="hidden lg:block">
             <Image src={heroMock} alt="Panel de Agrovio" className="w-full rounded-2xl shadow-2xl" />
@@ -74,12 +74,12 @@ export default function HomePageES() {
                 stats={[
                   { value: "22+", label: "Variedades de productos" },
                   { value: "20+", label: "Regiones" },
-                  { value: "150+", label: "Productores y procesadores" },
+                  { value: "150+", label: "Productores y Procesadores" },
                 ]}
               />
             </div>
             <div className="mt-10 flex justify-center">
-              <Badge>Red exclusiva de productores y compradores</Badge>
+              <Badge>Red exclusiva de productores y compradores — Conéctate y negocia más rápido. 24/7</Badge>
             </div>
           </Container>
         </section>
@@ -91,12 +91,12 @@ export default function HomePageES() {
           image={bidCards}
           imageAlt="Tarjeta de oferta y contra-oferta en Agrovio"
           imageSide="left"
-          lead="Mayor cobertura para que puedas enfocarte en aumentar el volumen, construir relaciones y resolver problemas."
+          lead="Mayor cobertura significa que puedes enfocarte en aumentar tu volumen, construir relaciones y resolver problemas."
           heading="Conecta y negocia más rápido. 24/7"
           bullets={[
             "Publica tu cosecha en minutos",
-            "Conéctate con compradores agrícolas verificados",
-            "Disponible en toda América Latina",
+            "Conéctate con compradores agro verificados",
+            "Disponible en toda Latinoamérica",
           ]}
         />
       </Reveal>
@@ -107,7 +107,7 @@ export default function HomePageES() {
           imageAlt="Notificaciones de trato por WhatsApp de Agrovio"
           imageSide="right"
           lead="Diseñado para manejar las complejidades del acopio agrícola."
-          heading="Construido para el mercado agro de Perú y Latinoamérica"
+          heading="Diseñado para el mercado agro de Perú y Latinoamérica"
           bullets={[
             "Integraciones WhatsApp",
             "Disponible en inglés y español",
@@ -145,9 +145,9 @@ export default function HomePageES() {
           <Container>
             <div className="mx-auto max-w-3xl text-center text-white">
               <p className="text-lg leading-relaxed sm:text-xl">
-                Mientras Perú lidera el crecimiento explosivo de las agroexportaciones en América Latina,
-                Agrovio está construyendo software para simplificar todo el proceso de abastecimiento de
-                productos agrícolas desde productores hasta procesadores y agroexportadores — también conocido como acopio.
+                Mientras Perú lidera el crecimiento explosivo de las agroexportaciones en Latinoamérica,
+                Agrovio está desarrollando software para simplificar todo el proceso de acopio agrícola
+                — desde los productores hasta los procesadores y agroexportadores.
               </p>
             </div>
           </Container>
@@ -159,7 +159,7 @@ export default function HomePageES() {
         <section id="leadership" className="py-16 sm:py-24">
           <Container>
             <div className="mx-auto max-w-2xl text-center">
-              <SectionHeading>Equipo de liderazgo</SectionHeading>
+              <SectionHeading>Equipo directivo</SectionHeading>
             </div>
             <div className="mt-12 flex justify-center">
               <div className="text-center">
@@ -192,10 +192,10 @@ export default function HomePageES() {
           <Container>
             <div className="mx-auto max-w-xl">
               <SectionHeading className="text-center">
-                Solicita una invitación para unirte a Agrovio hoy.
+                Solicita tu invitación para unirte a Agrovio hoy.
               </SectionHeading>
               <p className="mt-3 text-center text-ink/60">
-                Cuéntanos un poco sobre tu operación y nos pondremos en contacto.
+                Cuéntanos un poco sobre tu operación y nos pondremos en contacto contigo.
               </p>
               <div className="mt-10">
                 <InviteForm />
