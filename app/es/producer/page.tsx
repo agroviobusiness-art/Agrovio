@@ -27,7 +27,7 @@ export default function ProducerPageES() {
       <GreenHero>
         <div className="max-w-2xl">
           <p className="text-xs font-medium uppercase tracking-[0.18em] text-white/60">
-            PARA PEQUEÑOS, MEDIANOS Y GRANDES PRODUCTORES
+            PARA PRODUCTORES PEQUEÑOS, MEDIANOS Y GRANDES
           </p>
           <h1 className="mt-4 text-[2.75rem] font-medium leading-[1.05] tracking-tight sm:text-6xl">
             Empieza a vender al comprador correcto. Hoy.
@@ -39,7 +39,7 @@ export default function ProducerPageES() {
           <div className="mt-8 flex flex-wrap gap-3">
             <PillLink href="/inviterequest" variant="white">
               <Image src={leafMark} alt="" className="h-5 w-auto" />
-              Solicitar invitación
+              Solicita tu acceso
             </PillLink>
           </div>
         </div>
@@ -61,9 +61,9 @@ export default function ProducerPageES() {
             <div className="mt-12">
               <StatCardRow
                 stats={[
-                  { value: "#1", label: "Perú en exportaciones mundiales de arándanos y espárragos" },
-                  { value: "$12.8B", label: "Mercado de agroexportación peruano 2024" },
-                  { value: "2.2M+", label: "Granjas pequeñas y medianas en Perú" },
+                  { value: "#1", label: "Perú — En exportaciones globales de arándanos y espárragos" },
+                  { value: "$12.8B", label: "Mercado agroexportador peruano en 2024" },
+                  { value: "2.2M+", label: "Campos — Pequeños y medianos agricultores en Perú" },
                 ]}
               />
             </div>
@@ -110,8 +110,8 @@ export default function ProducerPageES() {
           heading="Configúralo una vez y deja que los compradores lleguen a ti"
           bullets={[
             "Notificaciones instantáneas por WhatsApp y correo",
-            "Alertas personalizadas por tipo de producto, grado y región",
-            "Sin spam — solo solicitudes de compradores relevantes",
+            "Alertas personalizadas por tipo de producto, categoría y región",
+            "Sin spam — solo solicitudes relevantes de compradores",
           ]}
         />
       </Reveal>
@@ -127,9 +127,9 @@ export default function ProducerPageES() {
           lead="Para que no tengas que encontrar compradores desde cero."
           bullets={[
             "Perfiles de compradores verificados — exportadores y procesadores con historial comercial confirmado",
-            "Verificación de facturas — presenta comprobante de transacción para construir tu perfil y historial",
+            "Verificación de facturas — presenta comprobantes para construir tu perfil e historial como vendedor",
             "Monitoreo continuo de confianza — detecta actividad sospechosa y protege a ambas partes",
-            "Perfiles de Agrovio Chat — cuentas protegidas con MFA para que siempre sepas con quién hablas",
+            "Perfiles en Agrovio Chat — cuentas protegidas con MFA para que siempre sepas con quién hablas",
           ]}
         />
       </Reveal>
@@ -139,8 +139,12 @@ export default function ProducerPageES() {
         <section className="bg-surface py-16 sm:py-24">
           <Container>
             <div className="mx-auto max-w-2xl text-center">
-              <SectionHeading>Únete a Agrovio hoy</SectionHeading>
-              <p className="mt-4 text-ink/60">Una plataforma, con precios que crecen con tu negocio.</p>
+              <SectionHeading>Haz crecer tu negocio agro</SectionHeading>
+              <ul className="mt-6 space-y-3 text-left text-ink/70 max-w-lg mx-auto">
+                <li className="flex gap-3"><span className="text-brand mt-0.5">✓</span><span>Accede a exportadores y procesadores en tu región — compradores que realmente compiten por tu cosecha.</span></li>
+                <li className="flex gap-3"><span className="text-brand mt-0.5">✓</span><span>Empieza ahora. Construye las relaciones comerciales, el conocimiento de mercado y el poder de negociación que tu competencia no tiene.</span></li>
+                <li className="flex gap-3"><span className="text-brand mt-0.5">✓</span><span>Calidad constante, publicaciones transparentes e historial verificado te convierten en el proveedor al que los compradores siempre vuelven.</span></li>
+              </ul>
               <div className="mt-8">
                 <PillLink href="/inviterequest" variant="brand" size="lg">
                   Empieza ahora
