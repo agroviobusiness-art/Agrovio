@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Badge } from "@/components/ui/badge";
@@ -16,6 +17,7 @@ import heroMock from "@/public/assets/hero-loadboard.png";
 import leafMark from "@/public/assets/agrovio-leaf.png";
 import founderPhoto from "@/public/assets/founder-diego-torres.jpg";
 import investorLogo from "@/public/assets/investor-santa-sofia.jpeg";
+import southAmericaMap from "@/public/assets/south-america-map.jpg";
 
 export default function HomePageES() {
   return (
@@ -38,12 +40,24 @@ export default function HomePageES() {
                 Solicita tu acceso
               </PillLink>
             </div>
-            <p className="mt-6 text-sm text-white/60">Con la confianza de +100 empresas agro</p>
           </div>
-          <div className="hidden lg:block">
-            <Image src={heroMock} alt="Panel de Agrovio" className="w-full rounded-2xl shadow-2xl" />
+
+          <div className="lg:justify-self-end">
+            <Image
+              src={heroMock}
+              alt="El panel de Agrovio con publicaciones de cosecha en vivo y notificaciones de trato por WhatsApp"
+              sizes="(max-width: 1024px) 100vw, 620px"
+              className="h-auto w-full"
+              quality={90}
+              loading="eager"
+              fetchPriority="high"
+            />
           </div>
         </div>
+
+        <p className="mt-10 text-sm text-white/80 sm:mt-14">
+          Con la confianza de +100 empresas agro
+        </p>
       </GreenHero>
 
       {/* Tagline */}
@@ -52,8 +66,8 @@ export default function HomePageES() {
           <Container>
             <p className="mx-auto max-w-4xl text-center font-display text-3xl font-medium leading-tight tracking-tight text-ink/40 sm:text-[2.75rem] sm:leading-[1.15]">
               Convirtiendo cada <span className="text-ink">cosecha</span>, en cada{" "}
-              <span className="text-ink">grado</span>, en un negocio que funciona para{" "}
-              <span className="text-ink">todos</span>.
+              <span className="text-ink">grado</span>, en un negocio que funciona
+              para <span className="text-ink">todos</span>.
             </p>
           </Container>
         </section>
@@ -64,7 +78,9 @@ export default function HomePageES() {
         <section className="py-12 sm:py-20">
           <Container>
             <div className="mx-auto max-w-2xl text-center">
-              <SectionHeading tone="brand">Accede a capacidad confiable en Perú y LATAM</SectionHeading>
+              <SectionHeading tone="brand">
+                Accede a capacidad confiable en Perú y LATAM
+              </SectionHeading>
               <p className="mt-4 text-lg text-ink/60">
                 Trabaja con una red seleccionada de expertos en comercio agrícola.
               </p>
@@ -79,7 +95,7 @@ export default function HomePageES() {
               />
             </div>
             <div className="mt-10 flex justify-center">
-              <Badge>Red exclusiva de productores y compradores — Conéctate y negocia más rápido. 24/7</Badge>
+              <Badge>Red exclusiva de productores y compradores</Badge>
             </div>
           </Container>
         </section>
@@ -141,31 +157,42 @@ export default function HomePageES() {
 
       {/* Mission band */}
       <Reveal className="reveal-fade">
-        <section className="bg-brand py-16 sm:py-24">
+        <section className="bg-hero-gradient py-12 text-white sm:py-28">
           <Container>
-            <div className="mx-auto max-w-3xl text-center text-white">
-              <p className="text-lg leading-relaxed sm:text-xl">
-                Mientras Perú lidera el crecimiento explosivo de las agroexportaciones en Latinoamérica,
-                Agrovio está desarrollando software para simplificar todo el proceso de acopio agrícola
-                — desde los productores hasta los procesadores y agroexportadores.
-              </p>
-            </div>
+            <p className="mx-auto max-w-4xl text-center font-display text-2xl font-medium leading-snug tracking-tight sm:text-[2rem] sm:leading-[1.3]">
+              Mientras Perú lidera el crecimiento explosivo de las agroexportaciones
+              en Latinoamérica, Agrovio está desarrollando software para simplificar
+              todo el proceso de acopio agrícola — desde los productores hasta los
+              procesadores y agroexportadores.
+            </p>
           </Container>
         </section>
       </Reveal>
 
       {/* Leadership */}
       <Reveal>
-        <section id="leadership" className="py-16 sm:py-24">
+        <section id="leadership" className="scroll-mt-28 py-12 sm:py-28">
           <Container>
             <div className="mx-auto max-w-2xl text-center">
               <SectionHeading>Equipo directivo</SectionHeading>
             </div>
-            <div className="mt-12 flex justify-center">
-              <div className="text-center">
-                <Image src={founderPhoto} alt="Diego Torres" className="mx-auto h-32 w-32 rounded-full object-cover" />
-                <p className="mt-4 text-xs font-medium uppercase tracking-widest text-ink/50">FUNDADOR Y CEO</p>
-                <p className="mt-1 text-lg font-medium">Diego Torres</p>
+            <div className="mx-auto mt-12 grid max-w-3xl items-center gap-8 sm:grid-cols-[280px_1fr] sm:gap-12">
+              <div className="overflow-hidden rounded-3xl">
+                <Image
+                  src={founderPhoto}
+                  alt="Diego Torres, Fundador y CEO de Agrovio"
+                  sizes="(max-width: 640px) 100vw, 280px"
+                  className="h-auto w-full"
+                  quality={90}
+                />
+              </div>
+              <div className="text-center sm:text-left">
+                <p className="text-sm font-medium uppercase tracking-[0.16em] text-brand-dark">
+                  Fundador y CEO
+                </p>
+                <p className="mt-2 font-display text-3xl font-medium tracking-tight text-ink">
+                  Diego Torres
+                </p>
               </div>
             </div>
           </Container>
@@ -174,13 +201,27 @@ export default function HomePageES() {
 
       {/* Investors */}
       <Reveal>
-        <section id="investors" className="border-t py-16 sm:py-24">
+        <section id="investors" className="scroll-mt-28 py-12 sm:py-24">
           <Container>
             <div className="mx-auto max-w-2xl text-center">
               <SectionHeading>Nuestros inversores</SectionHeading>
             </div>
-            <div className="mt-10 flex justify-center">
-              <Image src={investorLogo} alt="Santa Sofia del Sur" className="h-16 w-auto object-contain" />
+            <div className="mt-12 flex flex-col items-center gap-4">
+              <Link
+                href="https://stasofia.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Santa Sofia del Sur"
+                className="block overflow-hidden rounded-2xl ring-1 ring-black/[0.06] transition-shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+              >
+                <Image
+                  src={investorLogo}
+                  alt="Santa Sofia del Sur"
+                  sizes="340px"
+                  className="h-auto w-[300px] sm:w-[340px]"
+                />
+              </Link>
+              <span className="text-sm text-ink/55">Santa Sofia del Sur</span>
             </div>
           </Container>
         </section>
@@ -188,16 +229,24 @@ export default function HomePageES() {
 
       {/* Invite form */}
       <Reveal>
-        <section className="bg-surface py-16 sm:py-24">
+        <section id="invite" className="scroll-mt-28 py-12 sm:py-28">
           <Container>
-            <div className="mx-auto max-w-xl">
-              <SectionHeading className="text-center">
-                Solicita tu invitación para unirte a Agrovio hoy.
-              </SectionHeading>
-              <p className="mt-3 text-center text-ink/60">
-                Cuéntanos un poco sobre tu operación y nos pondremos en contacto contigo.
-              </p>
-              <div className="mt-10">
+            <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+              <div>
+                <SectionHeading>
+                  Solicita tu invitación para unirte a Agrovio hoy.
+                </SectionHeading>
+                <p className="mt-4 text-lg text-ink/60">
+                  Cuéntanos un poco sobre tu operación y nos pondremos en contacto contigo.
+                </p>
+                <Image
+                  src={southAmericaMap}
+                  alt="Agrovio opera en Perú y América Latina"
+                  sizes="(max-width: 1024px) 60vw, 440px"
+                  className="mt-10 w-full max-w-xs sm:max-w-sm lg:max-w-md"
+                />
+              </div>
+              <div className="rounded-3xl border border-black/[0.06] bg-white p-6 shadow-sm sm:p-10">
                 <InviteForm />
               </div>
             </div>
